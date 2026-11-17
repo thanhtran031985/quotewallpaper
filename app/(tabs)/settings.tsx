@@ -16,6 +16,7 @@ import { useTheme } from '@/theme/useTheme';
 import { useSettingsStore } from '@/store/useSettingsStore';
 import { useLibraryStore } from '@/store/useLibraryStore';
 import { haptics } from '@/services/haptics';
+import { exportQuotesToJson } from '@/services/quoteExport';
 
 export default function SettingsScreen() {
   const router = useRouter();
@@ -23,9 +24,18 @@ export default function SettingsScreen() {
   const { theme, isDark } = useTheme();
 
   const settings = useSettingsStore();
+  const quotes = useLibraryStore((s) => s.quotes);
   const resetLibrary = useLibraryStore((s) => s.resetAll);
 
   const [albumInput, setAlbumInput] = useState(settings.exportAlbumName || 'Quote Wallpaper');
+
+  const handleExportQuotes = async () => {
+    haptics.impact('light');
+    const res = await exportQuotesToJson(quotes);
+    if (!res.ok) {
+      Alert.alert('Lỗi', res.message);
+    }
+  };
 
   const handleAppearanceChange = (mode: 'system' | 'light' | 'dark') => {
     haptics.selection();
@@ -332,22 +342,58 @@ export default function SettingsScreen() {
         {/* Section 4: DỮ LIỆU */}
         <Text style={[styles.sectionTitle, { color: theme.colors.text.tertiary }]}>DỮ LIỆU</Text>
         <View style={[styles.card, { backgroundColor: theme.colors.bg.card }]}>
-          {/* Nhập/xuất sao lưu */}
-          <View style={[styles.row, { opacity: 0.5 }]}>
+          {/* Nhập danh ngôn */}
+          <TouchableOpacity
+            testID="btn-settings-import-quotes"
+            style={styles.row}
+            onPress={() => {
+              haptics.impact('light');
+              router.push('/quote-import');
+            }}
+            activeOpacity={0.7}
+            accessibilityRole="button"
+            accessibilityLabel="Nhập danh ngôn"
+          >
             <Text style={[styles.rowLabel, { color: theme.colors.text.primary }]}>
-              Nhập / Sao lưu danh ngôn
+              Nhập danh ngôn (JSON / CSV)
             </Text>
-            <Text style={[styles.rowValue, { color: theme.colors.text.tertiary }]}>Task 11</Text>
-          </View>
+            <Ionicons name="chevron-forward" size={18} color={theme.colors.text.tertiary} />
+          </TouchableOpacity>
+          <View style={[styles.separator, { backgroundColor: theme.colors.border.separator }]} />
+
+          {/* Sao lưu danh ngôn */}
+          <TouchableOpacity
+            testID="btn-settings-export-quotes"
+            style={styles.row}
+            onPress={handleExportQuotes}
+            activeOpacity={0.7}
+            accessibilityRole="button"
+            accessibilityLabel="Sao lưu danh ngôn"
+          >
+            <Text style={[styles.rowLabel, { color: theme.colors.text.primary }]}>
+              Sao lưu danh ngôn (JSON)
+            </Text>
+            <Ionicons name="share-outline" size={18} color={theme.colors.text.tertiary} />
+          </TouchableOpacity>
           <View style={[styles.separator, { backgroundColor: theme.colors.border.separator }]} />
 
           {/* Lịch sử */}
-          <View style={[styles.row, { opacity: 0.5 }]}>
+          <TouchableOpacity
+            testID="btn-settings-history"
+            style={styles.row}
+            onPress={() => {
+              haptics.impact('light');
+              router.push('/history');
+            }}
+            activeOpacity={0.7}
+            accessibilityRole="button"
+            accessibilityLabel="Lịch sử hình nền"
+          >
             <Text style={[styles.rowLabel, { color: theme.colors.text.primary }]}>
               Lịch sử hình nền
             </Text>
-            <Text style={[styles.rowValue, { color: theme.colors.text.tertiary }]}>Task 11</Text>
-          </View>
+            <Ionicons name="chevron-forward" size={18} color={theme.colors.text.tertiary} />
+          </TouchableOpacity>
           <View style={[styles.separator, { backgroundColor: theme.colors.border.separator }]} />
 
           {/* Đặt lại dữ liệu */}
