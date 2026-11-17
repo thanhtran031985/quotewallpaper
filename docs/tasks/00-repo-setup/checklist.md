@@ -8,7 +8,7 @@
 ## 2. Giao diện (Sáng / Tối)
 | Mã TC | Nội dung kiểm thử | Kết quả mong đợi | Trạng thái |
 |---|---|---|---|
-| **TC-UI-01** | Tab bar | 5 tab: Hôm nay, Danh ngôn, Ảnh, Mẫu, Cài đặt; icon đúng | ⬜ |
+| **TC-UI-01** | Tab bar | 5 tab: Hôm nay, Danh ngôn, Ảnh, Mẫu, Cài đặt; icon đúng | ✅ |
 
 ## 3. Trên iPhone (người dùng thử trong Expo Go)
 | Mã TC | Nội dung kiểm thử | Kết quả mong đợi | Trạng thái |
