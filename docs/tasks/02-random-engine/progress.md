@@ -1,6 +1,6 @@
 # Tiến độ — 02-random-engine
 
-Trạng thái: 🔄
+Trạng thái: ✅
 
 | Bước | Nội dung | Trạng thái | Ngày | Commit |
 |---|---|---|---|---|
