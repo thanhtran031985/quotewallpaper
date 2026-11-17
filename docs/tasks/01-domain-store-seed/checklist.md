@@ -8,7 +8,7 @@
 | **TC-LOG-03** | Xóa danh ngôn default | Không cho xóa, chỉ tắt | ✅ |
 | **TC-LOG-04** | Xóa template builtin | Không cho xóa | ✅ |
 | **TC-LOG-05** | Xóa template bật cuối cùng (chế độ Ngẫu nhiên) | Bị từ chối (R12) | ✅ |
-| **TC-LOG-06** | Seed chạy 2 lần | Không nhân đôi | ⬜ |
+| **TC-LOG-06** | Seed chạy 2 lần | Không nhân đôi | ✅ |
 | **TC-LOG-07** | Storage chứa JSON hỏng | Reset mặc định, có bản backup, không crash | ⬜ |
 
 ## 3. Trên iPhone (người dùng thử trong Expo Go)
