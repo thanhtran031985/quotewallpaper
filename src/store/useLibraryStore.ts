@@ -7,11 +7,13 @@ import {
   WallpaperImage,
   Template,
   Selection,
+  Settings,
   Result,
 } from '../domain/types';
 import { validateQuoteInput, isQuoteDuplicate } from '../domain/validate';
 import { LIBRARY_STORE_VERSION, migrateLibraryState } from './migrations';
 import { useSettingsStore } from './useSettingsStore';
+import { pickSelection } from '../engine/randomPick';
 
 function generateId(prefix: string): string {
   return `${prefix}_${Date.now()}_${Math.random().toString(36).substring(2, 8)}`;
@@ -41,12 +43,18 @@ export interface LibraryActions {
   removeTemplate: (id: string) => Result<void>;
   toggleTemplate: (id: string) => Result<void>;
 
-  // Selection & Pin
+  // Selection & Pin & Shuffle
+  shuffle: (customSettings?: Settings) => Result<Selection>;
   setCurrentSelection: (selection: Selection) => void;
   togglePin: (type: 'image' | 'quote' | 'template') => void;
+  setPinned: (type: 'image' | 'quote' | 'template', pinned: boolean) => void;
   resetPin: () => void;
 
   // Bulk / Admin
+  deleteQuote: (id: string) => Result<void>;
+  deleteImage: (id: string) => Result<void>;
+  deleteTemplate: (id: string) => Result<void>;
+  resetAll: () => void;
   setAllQuotesEnabled: (enabled: boolean) => void;
   setAllImagesEnabled: (enabled: boolean) => void;
   setAllTemplatesEnabled: (enabled: boolean) => Result<void>;
@@ -393,7 +401,27 @@ export const useLibraryStore = create<LibraryStore>()(
         return { ok: true, data: undefined };
       },
 
-      // === SELECTION & PIN ===
+      // === SELECTION & PIN & SHUFFLE ===
+      shuffle: (customSettings) => {
+        const { quotes, images, templates, current, pinned, history } = get();
+        const settings = customSettings || useSettingsStore.getState();
+
+        const pickRes = pickSelection({ quotes, images, templates }, settings, current, pinned);
+        if (!pickRes.ok) {
+          return pickRes;
+        }
+
+        const nextSelection = pickRes.data;
+        const nextHistory = [nextSelection, ...history].slice(0, 50);
+
+        set({
+          current: nextSelection,
+          history: nextHistory,
+        });
+
+        return pickRes;
+      },
+
       setCurrentSelection: (selection) => {
         const { history } = get();
         const filteredHistory = history.filter(
@@ -419,11 +447,26 @@ export const useLibraryStore = create<LibraryStore>()(
         });
       },
 
+      setPinned: (type, isPinned) => {
+        const { pinned } = get();
+        set({
+          pinned: {
+            ...pinned,
+            [type]: isPinned,
+          },
+        });
+      },
+
       resetPin: () => {
         set({
           pinned: { image: false, quote: false, template: false },
         });
       },
+
+      deleteQuote: (id) => get().removeQuote(id),
+      deleteImage: (id) => get().removeImage(id),
+      deleteTemplate: (id) => get().removeTemplate(id),
+      resetAll: () => set({ ...INITIAL_LIBRARY_STATE }),
 
       setAllQuotesEnabled: (enabled) => {
         const { quotes } = get();
