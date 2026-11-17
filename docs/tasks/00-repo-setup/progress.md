@@ -1,6 +1,6 @@
 # Tiến độ — 00-repo-setup
 
-Trạng thái: 🔄
+Trạng thái: ✅
 
 | Bước | Nội dung | Trạng thái | Ngày | Commit |
 |---|---|---|---|---|

@@ -13,8 +13,8 @@
 ## 3. Trên iPhone (người dùng thử trong Expo Go)
 | Mã TC | Nội dung kiểm thử | Kết quả mong đợi | Trạng thái |
 |---|---|---|---|
-| **TC-IOS-01** | Quét QR bằng Expo Go | App mở không lỗi, chuyển tab được | ⬜ |
-| **TC-IOS-02** | Đổi iPhone sang Tối | Nền và chữ đổi theo hệ thống | ⬜ |
+| **TC-IOS-01** | Quét QR bằng Expo Go | App mở không lỗi, chuyển tab được | ✅ |
+| **TC-IOS-02** | Đổi iPhone sang Tối | Nền và chữ đổi theo hệ thống | ✅ |
 
 ## 4. Hồi quy
 | Mã TC | Lệnh kiểm tra | Tiêu chí đạt | Trạng thái |
