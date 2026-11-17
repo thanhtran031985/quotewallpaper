@@ -13,7 +13,6 @@ jest.mock('@react-native-async-storage/async-storage', () => ({
 
 describe('useShuffleOnOpen', () => {
   let appStateListener: ((state: AppStateStatus) => void) | null = null;
-  const originalShuffle = useLibraryStore.getState().shuffle;
 
   beforeEach(() => {
     useLibraryStore.getState().resetAll();

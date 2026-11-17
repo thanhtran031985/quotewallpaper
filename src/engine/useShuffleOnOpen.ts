@@ -10,20 +10,21 @@ import { useSettingsStore } from '../store/useSettingsStore';
  * 2. App chuyển từ background/inactive sang active nếu shuffleOnOpen bật (R6).
  */
 export function useShuffleOnOpen() {
-  const shuffle = useLibraryStore((state) => state.shuffle);
   const current = useLibraryStore((state) => state.current);
-  const shuffleOnOpen = useSettingsStore((state) => state.shuffleOnOpen);
-  const appStateRef = useRef<AppStateStatus>(AppState.currentState);
+  const appStateRef = useRef<AppStateStatus>((AppState.currentState as AppStateStatus) ?? 'active');
 
   useEffect(() => {
+    const { shuffle, current: initialCurrent } = useLibraryStore.getState();
+    const { shuffleOnOpen } = useSettingsStore.getState();
+
     // Khi mở app lần đầu: nếu shuffleOnOpen bật hoặc chưa từng có selection nào
-    if (shuffleOnOpen || !current) {
+    if (shuffleOnOpen || !initialCurrent) {
       shuffle();
     }
 
     const subscription = AppState.addEventListener('change', (nextAppState: AppStateStatus) => {
       const isForegrounding =
-        /inactive|background/.test(appStateRef.current) && nextAppState === 'active';
+        /inactive|background/.test(appStateRef.current ?? '') && nextAppState === 'active';
 
       if (isForegrounding && useSettingsStore.getState().shuffleOnOpen) {
         useLibraryStore.getState().shuffle();
