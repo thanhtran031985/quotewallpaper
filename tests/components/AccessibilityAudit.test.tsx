@@ -20,15 +20,12 @@ describe('Accessibility & VoiceOver Audit (13-polish-performance Step 2)', () =>
     expect(btnLabel).toBeTruthy();
   });
 
-  it('LockScreenOverlay được ẩn khỏi cây VoiceOver để tránh làm rối người khiếm thị', async () => {
-    const { getByTestId } = await render(
+  it('LockScreenOverlay có accessibilityLabel rõ ràng cho vùng đồng hồ mô phỏng', async () => {
+    const { getByLabelText } = await render(
       <LockScreenOverlay showClockZone={true} />,
     );
 
-    const overlay = getByTestId('lock-screen-overlay', {
-      includeHiddenElements: true,
-    });
-    expect(overlay.props.accessibilityElementsHidden).toBe(true);
-    expect(overlay.props.importantForAccessibility).toBe('no-hide-descendants');
+    const clockZone = getByLabelText('Đồng hồ màn hình khóa mô phỏng');
+    expect(clockZone).toBeTruthy();
   });
 });

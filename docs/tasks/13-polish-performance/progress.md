@@ -1,6 +1,6 @@
 # Tiến độ — 13-polish-performance
 
-Trạng thái: 🔄
+Trạng thái: ✅
 
 | Bước | Nội dung | Trạng thái | Ngày | Commit |
 |---|---|---|---|---|

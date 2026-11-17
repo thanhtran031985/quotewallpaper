@@ -68,7 +68,9 @@ describe('Error Resilience & Fault Tolerance (13-polish-performance Step 3)', ()
       baseSettings,
     );
     expect(resNoQuotes.ok).toBe(false);
-    expect(resNoQuotes.code).toBe('EMPTY_QUOTES');
+    if (!resNoQuotes.ok) {
+      expect(resNoQuotes.code).toBe('EMPTY_QUOTES');
+    }
 
     // 0 ảnh bật
     const resNoImages = pickSelection(
@@ -76,7 +78,9 @@ describe('Error Resilience & Fault Tolerance (13-polish-performance Step 3)', ()
       baseSettings,
     );
     expect(resNoImages.ok).toBe(false);
-    expect(resNoImages.code).toBe('EMPTY_IMAGES');
+    if (!resNoImages.ok) {
+      expect(resNoImages.code).toBe('EMPTY_IMAGES');
+    }
 
     // 0 mẫu bật
     const resNoTemplates = pickSelection(
@@ -84,7 +88,9 @@ describe('Error Resilience & Fault Tolerance (13-polish-performance Step 3)', ()
       baseSettings,
     );
     expect(resNoTemplates.ok).toBe(false);
-    expect(resNoTemplates.code).toBe('EMPTY_TEMPLATES');
+    if (!resNoTemplates.ok) {
+      expect(resNoTemplates.code).toBe('EMPTY_TEMPLATES');
+    }
   });
 
   it('ảnh bị đánh dấu fileMissing=true sẽ tự động bị loại bỏ khỏi danh sách random', () => {
