@@ -15,7 +15,7 @@ Bảng tổng các task, chia theo giai đoạn GĐ0–GĐ3 (docs/PRD.md mục G
 | 08 | [08-export-settings-mvp](08-export-settings-mvp/task.md) — Lưu vào Ảnh, Cài đặt, Sáng/Tối, hoàn thiện MVP | ✅ | 04, 05, 06, 07 | feat/08-export-settings-mvp |
 | 09 | [09-template-editor](09-template-editor/task.md) — Trình tạo/sửa template tự tạo | ✅ | 07, 08 | feat/09-template-editor |
 | 10 | [10-batch-export-shortcuts](10-batch-export-shortcuts/task.md) — Xuất hàng loạt vào album và hướng dẫn Phím tắt | ✅ | 08 | feat/10-batch-export-shortcuts |
-| 11 | [11-import-history](11-import-history/task.md) — Nhập/xuất danh ngôn (JSON/CSV) và lịch sử hình nền | ⬜ | 05, 08 | feat/11-import-history |
+| 11 | [11-import-history](11-import-history/task.md) — Nhập/xuất danh ngôn (JSON/CSV) và lịch sử hình nền | 🔄 | 05, 08 | feat/11-import-history |
 | 12 | [12-eas-build](12-eas-build/task.md) — Development build và bản cài độc lập qua EAS | ⬜ | 08 | feat/12-eas-build |
 | 13 | [13-polish-performance](13-polish-performance/task.md) — Hoàn thiện: hiệu năng, truy cập, xử lý lỗi | ⬜ | 09, 10, 11 | feat/13-polish-performance |
 
