@@ -3,10 +3,10 @@
 ## 2. Giao diện (Sáng / Tối)
 | Mã TC | Nội dung kiểm thử | Kết quả mong đợi | Trạng thái |
 |---|---|---|---|
-| **TC-UI-01** | Bấm Đổi ngẫu nhiên | Hình đổi, có haptic, chip cập nhật | ⬜ |
-| **TC-UI-02** | Ghim câu rồi đổi | Câu giữ nguyên | ⬜ |
-| **TC-UI-03** | Tắt hết ảnh | EmptyState "Chưa có ảnh nào đang bật" + nút tới tab Ảnh | ⬜ |
-| **TC-UI-04** | Sáng/Tối | Nền app đổi, hình nền không đổi màu | ⬜ |
+| **TC-UI-01** | Bấm Đổi ngẫu nhiên | Hình đổi, có haptic, chip cập nhật | ✅ |
+| **TC-UI-02** | Ghim câu rồi đổi | Câu giữ nguyên | ✅ |
+| **TC-UI-03** | Tắt hết ảnh | EmptyState "Chưa có ảnh nào đang bật" + nút tới tab Ảnh | ✅ |
+| **TC-UI-04** | Sáng/Tối | Nền app đổi, hình nền không đổi màu | ✅ |
 
 ## 3. Trên iPhone (người dùng thử trong Expo Go)
 | Mã TC | Nội dung kiểm thử | Kết quả mong đợi | Trạng thái |
