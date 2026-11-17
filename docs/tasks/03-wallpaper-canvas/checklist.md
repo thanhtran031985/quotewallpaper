@@ -9,8 +9,8 @@
 ## 2. Giao diện (Sáng / Tối)
 | Mã TC | Nội dung kiểm thử | Kết quả mong đợi | Trạng thái |
 |---|---|---|---|
-| **TC-UI-01** | 8 template trên màn dev | Đúng đặc điểm PRD mục E | ⬜ |
-| **TC-UI-02** | Dấu tiếng Việt (ệ, ữ, ỗ) | Không lỗi glyph ở 5 font | ⬜ |
+| **TC-UI-01** | 8 template trên màn dev | Đúng đặc điểm PRD mục E | ✅ |
+| **TC-UI-02** | Dấu tiếng Việt (ệ, ữ, ỗ) | Không lỗi glyph ở 5 font | ✅ |
 
 ## 3. Trên iPhone (người dùng thử trong Expo Go)
 | Mã TC | Nội dung kiểm thử | Kết quả mong đợi | Trạng thái |
