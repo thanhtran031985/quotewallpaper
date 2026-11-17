@@ -40,6 +40,10 @@
   },
   "private": true,
   "jest": {
-    "preset": "jest-expo"
+    "preset": "jest-expo",
+    "transform": {
+      "^.+\\.[jt]sx?$": "babel-jest",
+      "^.+\\.mjs$": "babel-jest"
+    }
   }
 }

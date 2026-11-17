@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quote Wallpaper — Bảng tiến độ Task</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --primary: #3b82f6;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f172a;
+        --card-bg: #1e293b;
+        --text: #f8fafc;
+        --text-muted: #94a3b8;
+        --border: #334155;
+        --primary: #60a5fa;
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 32px 16px;
+    }
+    .container { max-width: 960px; margin: 0 auto; }
+    header { margin-bottom: 32px; }
+    h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+    p.subtitle { color: var(--text-muted); font-size: 15px; }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .stat-label { font-size: 13px; color: var(--text-muted); text-transform: uppercase; font-weight: 600; }
+    .stat-value { font-size: 32px; font-weight: 700; margin-top: 4px; }
+
+    .stage-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .stage-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+    .stage-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .stage-stat { color: var(--text-muted); font-size: 13px; }
+    .progress-bar-bg {
+      background: var(--border);
+      height: 8px;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      background: var(--primary);
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.3s ease;
+    }
+
+    .table-container {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow-x: auto;
+    }
+    table { width: 100%; border-collapse: collapse; text-align: left; font-size: 14px; }
+    th {
+      background: var(--card-bg);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 16px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+    td { padding: 14px 16px; border-bottom: 1px solid var(--border); }
+    tr:last-child td { border-bottom: none; }
+    .task-id { font-weight: 700; color: var(--text-muted); width: 48px; }
+    .task-title a { color: var(--primary); text-decoration: none; font-weight: 500; }
+    .task-title a:hover { text-decoration: underline; }
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .task-dep { color: var(--text-muted); }
+    .task-branch code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 12px;
+      background: var(--bg);
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+    }
+    footer {
+      margin-top: 32px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Quote Wallpaper — Bảng tiến độ Task</h1>
+      <p class="subtitle">Theo dõi tiến độ phát triển các task qua các giai đoạn GĐ0–GĐ3</p>
+    </header>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">Tổng số Task</div>
+        <div class="stat-value">14</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Hoàn thành</div>
+        <div class="stat-value" style="color: #16a34a;">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Đang thực hiện</div>
+        <div class="stat-value" style="color: #2563eb;">1</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Tiến độ chung</div>
+        <div class="stat-value">0%</div>
+      </div>
+    </div>
+
+    <div class="stage-grid">
+      
+      <div class="stage-card">
+        <div class="stage-header">
+          <span class="stage-name">GĐ0 — Nền tảng</span>
+          <span class="stage-stat">0/2 (0%)</span>
+        </div>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" style="width: 0%;"></div>
+        </div>
+      </div>
+    
+
+      <div class="stage-card">
+        <div class="stage-header">
+          <span class="stage-name">GĐ1 — Bản MVP</span>
+          <span class="stage-stat">0/7 (0%)</span>
+        </div>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" style="width: 0%;"></div>
+        </div>
+      </div>
+    
+
+      <div class="stage-card">
+        <div class="stage-header">
+          <span class="stage-name">GĐ2 — Mở rộng tính năng</span>
+          <span class="stage-stat">0/3 (0%)</span>
+        </div>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" style="width: 0%;"></div>
+        </div>
+      </div>
+    
+
+      <div class="stage-card">
+        <div class="stage-header">
+          <span class="stage-name">GĐ3 — Đóng gói & Hoàn thiện</span>
+          <span class="stage-stat">0/2 (0%)</span>
+        </div>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" style="width: 0%;"></div>
+        </div>
+      </div>
+    
+    </div>
+
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Task</th>
+            <th>Trạng thái</th>
+            <th>Phụ thuộc</th>
+            <th>Nhánh git</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+      <tr>
+        <td class="task-id">00</td>
+        <td class="task-title">
+          <a href="00-repo-setup/task.md">00-repo-setup — Khung dự án Expo + TypeScript, lint, test, tasks-dashboard</a>
+        </td>
+        <td>
+          <span class="status-pill" style="background:#dbeafe; color:#1d4ed8; border:1px solid #2563eb40;">
+            🔄 Đang làm
+          </span>
+        </td>
+        <td class="task-dep">—</td>
+        <td class="task-branch"><code>feat/00-repo-setup</code></td>
+      </tr>
+    
+
+      <tr>
+        <td class="task-id">01</td>
+        <td class="task-title">
+          <a href="01-domain-store-seed/task.md">01-domain-store-seed — Kiểu dữ liệu, store persist, dữ liệu mặc định, theme tokens</a>
+        </td>
+        <td>
+          <span class="status-pill" style="background:#f1f5f9; color:#475569; border:1px solid #64748b40;">
+            ⬜ Chưa làm
+          </span>
+        </td>
+        <td class="task-dep">00</td>
+        <td class="task-branch"><code>feat/01-domain-store-seed</code></td>
+      </tr>
+    
+
+      <tr>
+        <td class="task-id">02</td>
+        <td class="task-title">
+          <a href="02-random-engine/task.md">02-random-engine — Engine chọn ngẫu nhiên: noRepeat, ghim, chế độ template, yêu thích</a>
+        </td>
+        <td>
+          <span class="status-pill" style="background:#f1f5f9; color:#475569; border:1px solid #64748b40;">
+            ⬜ Chưa làm
+          </span>
+        </td>
+        <td class="task-dep">01</td>
+        <td class="task-branch"><code>feat/02-random-engine</code></td>
+      </tr>
+    
+
+      <tr>
+        <td class="task-id">03</td>
+        <td class="task-title">
+          <a href="03-wallpaper-canvas/task.md">03-wallpaper-canvas — WallpaperCanvas, layout vùng đồng hồ, fitText, 8 template builtin</a>
+        </td>
+        <td>
+          <span class="status-pill" style="background:#f1f5f9; color:#475569; border:1px solid #64748b40;">
+            ⬜ Chưa làm
+          </span>
+        </td>
+        <td class="task-dep">01</td>
+        <td class="task-branch"><code>feat/03-wallpaper-canvas</code></td>
+      </tr>
+    
+
+      <tr>
+        <td class="task-id">04</td>
+        <td class="task-title">
+          <a href="04-home-preview-ui/task.md">04-home-preview-ui — Tab Hôm nay và màn Xem trước</a>
+        </td>
+        <td>
+          <span class="status-pill" style="background:#f1f5f9; color:#475569; border:1px solid #64748b40;">
+            ⬜ Chưa làm
+          </span>
+        </td>
+        <td class="task-dep">02, 03</td>
+        <td class="task-branch"><code>feat/04-home-preview-ui</code></td>
+      </tr>
+    
+
+      <tr>
+        <td class="task-id">05</td>
+        <td class="task-title">
+          <a href="05-quotes-ui/task.md">05-quotes-ui — Tab Danh ngôn: danh sách, tìm kiếm, thêm/sửa, bật/tắt, yêu thích</a>
+        </td>
+        <td>
+          <span class="status-pill" style="background:#f1f5f9; color:#475569; border:1px solid #64748b40;">
+            ⬜ Chưa làm
+          </span>
+        </td>
+        <td class="task-dep">01</td>
+        <td class="task-branch"><code>feat/05-quotes-ui</code></td>
+      </tr>
+    
+
+      <tr>
+        <td class="task-id">06</td>
+        <td class="task-title">
+          <a href="06-images-ui/task.md">06-images-ui — Tab Ảnh: chọn từ Photos, chép vào app, bật/tắt, điểm lấy nét, xóa</a>
+        </td>
+        <td>
+          <span class="status-pill" style="background:#f1f5f9; color:#475569; border:1px solid #64748b40;">
+            ⬜ Chưa làm
+          </span>
+        </td>
+        <td class="task-dep">01</td>
+        <td class="task-branch"><code>feat/06-images-ui</code></td>
+      </tr>
+    
+
+      <tr>
+        <td class="task-id">07</td>
+        <td class="task-title">
+          <a href="07-templates-ui/task.md">07-templates-ui — Tab Mẫu: chế độ Cố định / Ngẫu nhiên, bật/tắt, nhân bản, xóa</a>
+        </td>
+        <td>
+          <span class="status-pill" style="background:#f1f5f9; color:#475569; border:1px solid #64748b40;">
+            ⬜ Chưa làm
+          </span>
+        </td>
+        <td class="task-dep">03</td>
+        <td class="task-branch"><code>feat/07-templates-ui</code></td>
+      </tr>
+    
+
+      <tr>
+        <td class="task-id">08</td>
+        <td class="task-title">
+          <a href="08-export-settings-mvp/task.md">08-export-settings-mvp — Lưu vào Ảnh, Cài đặt, Sáng/Tối, hoàn thiện MVP</a>
+        </td>
+        <td>
+          <span class="status-pill" style="background:#f1f5f9; color:#475569; border:1px solid #64748b40;">
+            ⬜ Chưa làm
+          </span>
+        </td>
+        <td class="task-dep">04, 05, 06, 07</td>
+        <td class="task-branch"><code>feat/08-export-settings-mvp</code></td>
+      </tr>
+    
+
+      <tr>
+        <td class="task-id">09</td>
+        <td class="task-title">
+          <a href="09-template-editor/task.md">09-template-editor — Trình tạo/sửa template tự tạo</a>
+        </td>
+        <td>
+          <span class="status-pill" style="background:#f1f5f9; color:#475569; border:1px solid #64748b40;">
+            ⬜ Chưa làm
+          </span>
+        </td>
+        <td class="task-dep">07, 08</td>
+        <td class="task-branch"><code>feat/09-template-editor</code></td>
+      </tr>
+    
+
+      <tr>
+        <td class="task-id">10</td>
+        <td class="task-title">
+          <a href="10-batch-export-shortcuts/task.md">10-batch-export-shortcuts — Xuất hàng loạt vào album và hướng dẫn Phím tắt</a>
+        </td>
+        <td>
+          <span class="status-pill" style="background:#f1f5f9; color:#475569; border:1px solid #64748b40;">
+            ⬜ Chưa làm
+          </span>
+        </td>
+        <td class="task-dep">08</td>
+        <td class="task-branch"><code>feat/10-batch-export-shortcuts</code></td>
+      </tr>
+    
+
+      <tr>
+        <td class="task-id">11</td>
+        <td class="task-title">
+          <a href="11-import-history/task.md">11-import-history — Nhập/xuất danh ngôn (JSON/CSV) và lịch sử hình nền</a>
+        </td>
+        <td>
+          <span class="status-pill" style="background:#f1f5f9; color:#475569; border:1px solid #64748b40;">
+            ⬜ Chưa làm
+          </span>
+        </td>
+        <td class="task-dep">05, 08</td>
+        <td class="task-branch"><code>feat/11-import-history</code></td>
+      </tr>
+    
+
+      <tr>
+        <td class="task-id">12</td>
+        <td class="task-title">
+          <a href="12-eas-build/task.md">12-eas-build — Development build và bản cài độc lập qua EAS</a>
+        </td>
+        <td>
+          <span class="status-pill" style="background:#f1f5f9; color:#475569; border:1px solid #64748b40;">
+            ⬜ Chưa làm
+          </span>
+        </td>
+        <td class="task-dep">08</td>
+        <td class="task-branch"><code>feat/12-eas-build</code></td>
+      </tr>
+    
+
+      <tr>
+        <td class="task-id">13</td>
+        <td class="task-title">
+          <a href="13-polish-performance/task.md">13-polish-performance — Hoàn thiện: hiệu năng, truy cập, xử lý lỗi</a>
+        </td>
+        <td>
+          <span class="status-pill" style="background:#f1f5f9; color:#475569; border:1px solid #64748b40;">
+            ⬜ Chưa làm
+          </span>
+        </td>
+        <td class="task-dep">09, 10, 11</td>
+        <td class="task-branch"><code>feat/13-polish-performance</code></td>
+      </tr>
+    
+        </tbody>
+      </table>
+    </div>
+
+    <footer>
+      Tự động sinh bởi <code>scripts/tasks-dashboard.mjs</code> từ <code>docs/tasks/README.md</code>
+    </footer>
+  </div>
+</body>
+</html>
