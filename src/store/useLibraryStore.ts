@@ -126,7 +126,10 @@ export const useLibraryStore = create<LibraryStore>()(
         );
 
         set({ quotes: updatedQuotes });
-        return { ok: true, data: { ...target, text: valRes.data.text, author: valRes.data.author, updatedAt: now } };
+        return {
+          ok: true,
+          data: { ...target, text: valRes.data.text, author: valRes.data.author, updatedAt: now },
+        };
       },
 
       removeQuote: (id) => {
@@ -330,11 +333,7 @@ export const useLibraryStore = create<LibraryStore>()(
         const enabledTemplates = templates.filter((t) => t.enabled);
 
         // Quy tắc R12: Không được xóa template cuối cùng đang bật ở chế độ Ngẫu nhiên
-        if (
-          settings.templateMode === 'random' &&
-          target.enabled &&
-          enabledTemplates.length <= 1
-        ) {
+        if (settings.templateMode === 'random' && target.enabled && enabledTemplates.length <= 1) {
           return {
             ok: false,
             code: 'CANNOT_DELETE_LAST_ENABLED',
@@ -373,11 +372,7 @@ export const useLibraryStore = create<LibraryStore>()(
         const enabledTemplates = templates.filter((t) => t.enabled);
 
         // Quy tắc R12: Giữ ít nhất 1 mẫu bật khi ở chế độ Ngẫu nhiên
-        if (
-          settings.templateMode === 'random' &&
-          target.enabled &&
-          enabledTemplates.length <= 1
-        ) {
+        if (settings.templateMode === 'random' && target.enabled && enabledTemplates.length <= 1) {
           return {
             ok: false,
             code: 'CANNOT_DISABLE_LAST_ENABLED',
@@ -464,10 +459,7 @@ export const useLibraryStore = create<LibraryStore>()(
         set({
           quotes: [...defaultQuotes.map((q) => ({ ...q, enabled: true })), ...userQuotes],
           images: [...defaultImages.map((img) => ({ ...img, enabled: true })), ...userImages],
-          templates: [
-            ...defaultTemplates.map((t) => ({ ...t, enabled: true })),
-            ...userTemplates,
-          ],
+          templates: [...defaultTemplates.map((t) => ({ ...t, enabled: true })), ...userTemplates],
         });
       },
     }),

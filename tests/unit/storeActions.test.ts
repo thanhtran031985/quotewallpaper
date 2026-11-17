@@ -117,7 +117,12 @@ describe('useLibraryStore & useSettingsStore actions', () => {
       expect(addRes.ok).toBe(true);
       if (addRes.ok) {
         useLibraryStore.setState({
-          current: { imageId: 'img-default', quoteId: addRes.data.id, templateId: 'tpl-center', pickedAt: '' },
+          current: {
+            imageId: 'img-default',
+            quoteId: addRes.data.id,
+            templateId: 'tpl-center',
+            pickedAt: '',
+          },
           pinned: { image: false, quote: true, template: false },
         });
 

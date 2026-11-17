@@ -1,4 +1,4 @@
-import { seedInitialData, restoreDefaultData, DEFAULT_TEMPLATES, DEFAULT_IMAGES } from '../../src/services/seed';
+import { seedInitialData, restoreDefaultData } from '../../src/services/seed';
 import { useLibraryStore } from '../../src/store/useLibraryStore';
 
 // Mock AsyncStorage
@@ -53,7 +53,9 @@ describe('services/seed', () => {
     // Tắt 1 câu default
     const firstDefault = useLibraryStore.getState().quotes.find((q) => q.source === 'default')!;
     useLibraryStore.getState().toggleQuote(firstDefault.id);
-    expect(useLibraryStore.getState().quotes.find((q) => q.id === firstDefault.id)!.enabled).toBe(false);
+    expect(useLibraryStore.getState().quotes.find((q) => q.id === firstDefault.id)!.enabled).toBe(
+      false,
+    );
 
     // Giả lập mất 1 ảnh default
     useLibraryStore.setState((s) => ({

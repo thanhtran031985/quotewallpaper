@@ -5,7 +5,7 @@ Bảng tổng các task, chia theo giai đoạn GĐ0–GĐ3 (docs/PRD.md mục G
 | # | Task | Trạng thái | Phụ thuộc | Nhánh git |
 |---|---|---|---|---|
 | 00 | [00-repo-setup](00-repo-setup/task.md) — Khung dự án Expo + TypeScript, lint, test, tasks-dashboard | ✅ | — | feat/00-repo-setup |
-| 01 | [01-domain-store-seed](01-domain-store-seed/task.md) — Kiểu dữ liệu, store persist, dữ liệu mặc định, theme tokens | 🔄 | 00 | feat/01-domain-store-seed |
+| 01 | [01-domain-store-seed](01-domain-store-seed/task.md) — Kiểu dữ liệu, store persist, dữ liệu mặc định, theme tokens | ✅ | 00 | feat/01-domain-store-seed |
 | 02 | [02-random-engine](02-random-engine/task.md) — Engine chọn ngẫu nhiên: noRepeat, ghim, chế độ template, yêu thích | ⬜ | 01 | feat/02-random-engine |
 | 03 | [03-wallpaper-canvas](03-wallpaper-canvas/task.md) — WallpaperCanvas, layout vùng đồng hồ, fitText, 8 template builtin | ⬜ | 01 | feat/03-wallpaper-canvas |
 | 04 | [04-home-preview-ui](04-home-preview-ui/task.md) — Tab Hôm nay và màn Xem trước | ⬜ | 02, 03 | feat/04-home-preview-ui |
