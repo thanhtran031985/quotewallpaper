@@ -16,7 +16,13 @@ export function LockScreenOverlay({
   testID = 'lock-screen-overlay',
 }: LockScreenOverlayProps) {
   return (
-    <View testID={testID} style={styles.overlay} pointerEvents="none">
+    <View
+      testID={testID}
+      style={styles.overlay}
+      pointerEvents="none"
+      accessibilityElementsHidden={true}
+      importantForAccessibility="no-hide-descendants"
+    >
       {/* Vùng đồng hồ: Top 8% - 32% */}
       <View style={styles.clockContainer}>
         <Text style={styles.dateText}>{date}</Text>
