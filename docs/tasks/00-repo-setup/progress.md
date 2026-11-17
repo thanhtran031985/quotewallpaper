@@ -6,7 +6,7 @@ Trạng thái: 🔄
 |---|---|---|---|---|
 | 1 | Khởi tạo dự án và cấu trúc thư mục | ✅ | 2026-11-17 | 69507b3 |
 | 2 | Lint, format, script npm | ✅ | 2026-11-17 | 85a9ccf |
-| 3 | Tasks dashboard | ✅ | 2026-11-17 | Pending |
+| 3 | Tasks dashboard | ✅ | 2026-11-17 | 8716afd |
 | 4 | Tab rỗng + chạy trên iPhone | ⬜ | | |
 
 ## Nhật ký
