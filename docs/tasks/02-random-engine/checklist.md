@@ -9,7 +9,7 @@
 | **TC-LOG-04** | Ghim ảnh | Ảnh không đổi qua các lần shuffle | ✅ |
 | **TC-LOG-05** | Tắt hết ảnh | Trả EMPTY_IMAGES | ✅ |
 | **TC-LOG-06** | favoritesBoost | Câu yêu thích xuất hiện ~2 lần câu thường | ✅ |
-| **TC-LOG-07** | AppState background → active | Shuffle đúng 1 lần | ⬜ |
+| **TC-LOG-07** | AppState background → active | Shuffle đúng 1 lần | ✅ |
 
 ## 4. Hồi quy
 | Mã TC | Lệnh kiểm tra | Tiêu chí đạt | Trạng thái |
