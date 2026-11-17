@@ -3,8 +3,8 @@
 ## 1. Logic
 | Mã TC | Nội dung kiểm thử | Kết quả mong đợi | Trạng thái |
 |---|---|---|---|
-| **TC-LOG-01** | Câu 220 ký tự, template Đậm nét | Cỡ chữ giảm, không tràn hoặc overflow=true | ⬜ |
-| **TC-LOG-02** | Template có yPct trong vùng đồng hồ | Khối bị đẩy xuống dưới vùng | ⬜ |
+| **TC-LOG-01** | Câu 220 ký tự, template Đậm nét | Cỡ chữ giảm, không tràn hoặc overflow=true | ✅ |
+| **TC-LOG-02** | Template có yPct trong vùng đồng hồ | Khối bị đẩy xuống dưới vùng | ✅ |
 
 ## 2. Giao diện (Sáng / Tối)
 | Mã TC | Nội dung kiểm thử | Kết quả mong đợi | Trạng thái |
