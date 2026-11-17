@@ -8,7 +8,7 @@
 ## 2. Giao diện (Sáng / Tối)
 | Mã TC | Nội dung kiểm thử | Kết quả mong đợi | Trạng thái |
 |---|---|---|---|
-| **TC-UI-01** | Thêm câu 221 ký tự | Báo lỗi, không lưu | ⬜ |
+| **TC-UI-01** | Thêm câu 221 ký tự | Báo lỗi, không lưu | ✅ |
 | **TC-UI-02** | Vuốt câu default | Chỉ có Yêu thích | ⬜ |
 | **TC-UI-03** | Tắt tất cả | Tab Hôm nay báo thiếu câu | ⬜ |
 
