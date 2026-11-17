@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Quote Wallpaper – Prototype (React Native reference)</title>
+<style>
+  :root{
+    --bg:#F2F2F7; --card:#FFFFFF; --text:#000; --sub:#6C6C70; --sep:rgba(60,60,67,.18);
+    --accent:#0A84FF; --fill:rgba(118,118,128,.12); --radius:14px;
+    --font:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--font);background:#E5E5EA;color:var(--text);display:flex;gap:32px;justify-content:center;align-items:flex-start;padding:28px 16px;flex-wrap:wrap}
+  button{font-family:inherit;border:0;background:none;cursor:pointer;color:inherit}
+
+  /* ===== Side doc panel (không thuộc app) ===== */
+  .doc{max-width:360px;font-size:13px;line-height:1.5;color:#333}
+  .doc h1{font-size:20px;margin-bottom:6px}
+  .doc h2{font-size:14px;margin:14px 0 4px}
+  .doc code{background:#fff;padding:1px 5px;border-radius:4px;font-size:12px}
+  .doc ul{padding-left:18px}
+
+  /* ===== Phone frame ===== */
+  .phone{width:390px;height:844px;border-radius:54px;background:#000;padding:12px;box-shadow:0 30px 60px rgba(0,0,0,.25);flex-shrink:0}
+  .screen{position:relative;width:100%;height:100%;border-radius:44px;overflow:hidden;background:var(--bg)}
+  .statusbar{position:absolute;top:0;left:0;right:0;height:50px;display:flex;justify-content:space-between;align-items:center;padding:0 30px;font-weight:600;font-size:15px;z-index:30;pointer-events:none}
+  .island{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:120px;height:34px;background:#000;border-radius:20px;z-index:31}
+  .statusbar.light{color:#fff}
+
+  /* ===== Screens ===== */
+  .view{position:absolute;inset:0;padding:54px 0 90px;overflow-y:auto;display:none}
+  .view.active{display:block}
+  .view::-webkit-scrollbar{display:none}
+  .navbar{display:flex;justify-content:space-between;align-items:center;padding:6px 16px 2px}
+  .largeTitle{font-size:32px;font-weight:700;letter-spacing:.2px;padding:2px 16px 10px}
+  .iconBtn{width:36px;height:36px;border-radius:50%;background:var(--fill);display:grid;place-items:center;color:var(--accent)}
+  .iconBtn svg{width:18px;height:18px}
+  .section{font-size:13px;color:var(--sub);text-transform:uppercase;padding:14px 32px 6px}
+  .group{background:var(--card);border-radius:var(--radius);margin:0 16px;overflow:hidden}
+  .row{display:flex;align-items:center;gap:12px;padding:11px 16px;min-height:44px;position:relative;font-size:16px}
+  .row+.row::before{content:"";position:absolute;top:0;left:16px;right:0;height:.5px;background:var(--sep)}
+  .row .grow{flex:1;min-width:0}
+  .row .val{color:var(--sub);font-size:15px}
+  .chev{color:#C7C7CC}
+  .footnote{font-size:12px;color:var(--sub);padding:6px 32px 0}
+
+  /* Switch */
+  .switch{width:51px;height:31px;border-radius:16px;background:#E9E9EB;position:relative;transition:.2s;flex-shrink:0}
+  .switch::after{content:"";position:absolute;top:2px;left:2px;width:27px;height:27px;border-radius:50%;background:#fff;box-shadow:0 2px 4px rgba(0,0,0,.2);transition:.2s}
+  .switch.on{background:#34C759}.switch.on::after{left:22px}
+
+  /* Segmented */
+  .seg{display:flex;background:var(--fill);border-radius:9px;padding:2px;margin:0 16px}
+  .seg button{flex:1;padding:7px 0;font-size:13px;font-weight:500;border-radius:7px}
+  .seg button.on{background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.12)}
+
+  /* ===== Wallpaper canvas (component <WallpaperCanvas/>) ===== */
+  .wp{position:relative;overflow:hidden;background-size:cover;background-position:center;color:#fff}
+  .wp .shade{position:absolute;inset:0}
+  .wp .q{position:absolute;font-weight:500}
+  .wp .a{opacity:.85;font-size:.62em;margin-top:.6em;font-style:normal;letter-spacing:.3px}
+
+  /* Templates — mỗi class = 1 template trong RN (style object) */
+  .t-center .shade{background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.35))}
+  .t-center .q{left:8%;right:8%;top:52%;text-align:center;font-family:Georgia,"Times New Roman",serif;font-size:var(--fs,22px);line-height:1.35;text-shadow:0 2px 10px rgba(0,0,0,.4)}
+
+  .t-glass .shade{background:linear-gradient(180deg,transparent 50%,rgba(0,0,0,.25))}
+  .t-glass .q{left:6%;right:6%;bottom:14%;padding:16px 18px;border-radius:20px;background:rgba(255,255,255,.18);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.3);font-size:calc(var(--fs,22px)*.82);line-height:1.4}
+
+  .t-minimal .shade{background:linear-gradient(90deg,rgba(0,0,0,.45),transparent 75%)}
+  .t-minimal .q{left:8%;right:22%;bottom:18%;text-align:left;font-size:calc(var(--fs,22px)*.9);line-height:1.35;font-weight:600;border-left:3px solid #fff;padding-left:12px}
+
+  .t-bold .shade{background:rgba(0,0,0,.38)}
+  .t-bold .q{left:8%;right:8%;top:44%;text-transform:uppercase;font-weight:800;letter-spacing:.5px;font-size:calc(var(--fs,22px)*1.05);line-height:1.15;text-align:center}
+
+  .t-frame .shade{background:rgba(0,0,0,.18);box-shadow:inset 0 0 0 14px rgba(255,255,255,.9)}
+  .t-frame .q{left:12%;right:12%;bottom:16%;text-align:center;font-family:Georgia,serif;font-style:italic;font-size:calc(var(--fs,22px)*.86);line-height:1.4}
+
+  .t-paper .shade{background:linear-gradient(180deg,transparent 55%,rgba(250,247,240,1) 55%)}
+  .t-paper .q{left:8%;right:8%;top:60%;color:#222;font-family:Georgia,serif;font-size:calc(var(--fs,22px)*.82);line-height:1.45;text-align:left}
+
+  /* Lock screen overlay (chỉ để preview, KHÔNG export) */
+  .lock{position:absolute;inset:0;pointer-events:none;color:#fff;text-align:center;text-shadow:0 1px 6px rgba(0,0,0,.25)}
+  .lock .date{margin-top:14%;font-size:.95em;font-weight:600;opacity:.9}
+  .lock .time{font-size:4.6em;font-weight:700;line-height:1;letter-spacing:-1px;opacity:.95}
+  .lock .zone{position:absolute;left:8%;right:8%;top:8%;height:24%;border:1.5px dashed rgba(255,255,255,.7);border-radius:14px}
+  .lock .zone span{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);font-size:10px;text-shadow:none;background:rgba(0,0,0,.45);padding:2px 8px;border-radius:8px;white-space:nowrap}
+
+  /* ===== Home ===== */
+  .hero{margin:0 16px;border-radius:26px;height:470px;box-shadow:0 10px 30px rgba(0,0,0,.18);font-size:14px}
+  .hero .chip{position:absolute;top:12px;left:12px;z-index:5;font-size:11px;font-weight:600;padding:5px 10px;border-radius:12px;background:rgba(0,0,0,.35);backdrop-filter:blur(10px)}
+  .actions{display:flex;gap:10px;margin:14px 16px 0}
+  .btn{flex:1;height:50px;border-radius:14px;font-size:16px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px}
+  .btn.primary{background:var(--accent);color:#fff}
+  .btn.tinted{background:rgba(10,132,255,.12);color:var(--accent)}
+  .btn svg{width:18px;height:18px}
+  .metaLine{display:flex;justify-content:center;gap:6px;margin-top:10px;font-size:12px;color:var(--sub)}
+
+  /* ===== Lists ===== */
+  .search{margin:0 16px 8px;background:var(--fill);border-radius:10px;padding:8px 12px;font-size:16px;color:var(--sub);display:flex;gap:6px;align-items:center}
+  .qtext{font-size:15px;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .qauthor{font-size:13px;color:var(--sub);margin-top:2px}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin:0 16px;border-radius:var(--radius);overflow:hidden}
+  .thumb{aspect-ratio:9/16;background-size:cover;position:relative}
+  .thumb .off{position:absolute;inset:0;background:rgba(255,255,255,.6)}
+  .thumb .chk{position:absolute;right:6px;bottom:6px;width:22px;height:22px;border-radius:50%;border:2px solid #fff;background:rgba(0,0,0,.2)}
+  .thumb.sel .chk{background:var(--accent)}
+  .thumb.sel .chk::after{content:"✓";color:#fff;font-size:12px;font-weight:700;display:grid;place-items:center;height:100%}
+
+  .tgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:0 16px}
+  .tcard{text-align:center;font-size:13px;font-weight:500}
+  .tcard .wp{height:270px;border-radius:18px;font-size:8px;border:3px solid transparent}
+  .tcard.sel .wp{border-color:var(--accent)}
+  .tcard .tname{margin-top:6px;display:flex;justify-content:center;align-items:center;gap:5px}
+  .pill{font-size:10px;font-weight:600;padding:2px 6px;border-radius:6px;background:rgba(10,132,255,.12);color:var(--accent)}
+  .tcard.excluded .wp{opacity:.35}
+
+  /* ===== Tab bar (Liquid-glass style) ===== */
+  .tabbar{position:absolute;left:14px;right:14px;bottom:22px;height:62px;border-radius:31px;background:rgba(255,255,255,.72);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);box-shadow:0 8px 24px rgba(0,0,0,.12);border:.5px solid rgba(255,255,255,.8);display:flex;padding:5px;z-index:20}
+  .tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:10px;font-weight:500;color:#3C3C43;border-radius:26px}
+  .tab svg{width:22px;height:22px}
+  .tab.on{color:var(--accent);background:rgba(10,132,255,.1)}
+  .homeind{position:absolute;bottom:7px;left:50%;transform:translateX(-50%);width:134px;height:5px;border-radius:3px;background:#000;z-index:40}
+
+  /* ===== Fullscreen preview ===== */
+  .full{position:absolute;inset:0;z-index:25;display:none;font-size:16px}
+  .full.active{display:block}
+  .full .wp{position:absolute;inset:0;font-size:16px}
+  .fullBar{position:absolute;left:16px;right:16px;bottom:34px;display:flex;justify-content:space-between;align-items:center;z-index:5}
+  .glassBtn{height:48px;min-width:48px;padding:0 16px;border-radius:24px;background:rgba(255,255,255,.22);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);color:#fff;font-weight:600;font-size:15px;display:flex;align-items:center;gap:6px;border:.5px solid rgba(255,255,255,.35)}
+  .glassBtn svg{width:20px;height:20px}
+
+  /* Sheet + toast */
+  .sheetBg{position:absolute;inset:0;background:rgba(0,0,0,.3);z-index:50;display:none}
+  .sheet{position:absolute;left:0;right:0;bottom:0;background:var(--bg);border-radius:22px 22px 0 0;padding:8px 0 34px;z-index:51;transform:translateY(100%);transition:.25s}
+  .sheet.open{transform:none}.sheetBg.open{display:block}
+  .grabber{width:36px;height:5px;border-radius:3px;background:#C7C7CC;margin:0 auto 8px}
+  .sheetTitle{display:flex;justify-content:space-between;align-items:center;padding:4px 16px 12px;font-weight:600;font-size:17px}
+  .sheet textarea,.sheet input{width:100%;border:0;outline:0;font-family:inherit;font-size:16px;background:transparent;resize:none}
+  .toast{position:absolute;top:60px;left:50%;transform:translateX(-50%) translateY(-120px);background:rgba(30,30,30,.85);color:#fff;font-size:14px;font-weight:500;padding:10px 18px;border-radius:22px;z-index:60;transition:.3s;white-space:nowrap}
+  .toast.show{transform:translateX(-50%) translateY(0)}
+  .danger{color:#FF3B30}
+</style>
+</head>
+<body>
+
+<!-- ======= Ghi chú mapping sang React Native ======= -->
+<div class="doc">
+  <h1>Quote Wallpaper – Prototype</h1>
+  <p>Prototype tương tác. Bấm thử các tab, nút <b>Đổi ngẫu nhiên</b>, chế độ template <b>Cố định / Ngẫu nhiên</b>, bật/tắt từng ảnh, câu, template.</p>
+
+  <h2>Logic random</h2>
+  <ul>
+    <li>Pool = ảnh đang bật × câu đang bật × template đang bật.</li>
+    <li>Template mode: <code>fixed</code> dùng 1 template; <code>random</code> chọn trong các template đã bật.</li>
+    <li><b>Không lặp lại liên tiếp</b>: loại item vừa hiển thị khỏi lần chọn kế tiếp.</li>
+    <li>Tự đổi mỗi lần mở app (AppState → <code>active</code>).</li>
+  </ul>
+
+  <h2>Mapping RN</h2>
+  <ul>
+    <li>Tab bar → <code>expo-router</code> Tabs (5 tab)</li>
+    <li><code>.wp</code> → <code>&lt;WallpaperCanvas image quote template /&gt;</code></li>
+    <li><code>.t-*</code> → <code>templates.ts</code> (style object)</li>
+    <li>Lock overlay → chỉ hiện khi preview, không export</li>
+    <li>Lưu ảnh → <code>react-native-view-shot</code> + <code>expo-media-library</code></li>
+    <li>Chọn ảnh → <code>expo-image-picker</code></li>
+    <li>State → <code>zustand</code> + <code>AsyncStorage</code></li>
+    <li>Glass → <code>expo-blur</code> (BlurView)</li>
+  </ul>
+
+  <h2>Giới hạn iOS</h2>
+  <p>App không tự thay wallpaper khi mở khóa máy. Random chạy khi mở app; muốn wallpaper tự đổi cần qua <b>Phím tắt (Shortcuts)</b> với hành động “Đặt hình nền” (mục Cài đặt → Tự động hóa).</p>
+</div>
+
+<!-- ======= Phone ======= -->
+<div class="phone">
+<div class="screen" id="screen">
+  <div class="island"></div>
+  <div class="statusbar" id="statusbar"><span>9:41</span><span>●●● ▮</span></div>
+  <div class="toast" id="toast"></div>
+
+  <!-- TAB 1: HÔM NAY -->
+  <section class="view active" id="v-home">
+    <div class="navbar">
+      <span style="font-size:13px;color:var(--sub)">Thứ Hai, 15 tháng 6</span>
+      <button class="iconBtn" data-goto="v-settings" aria-label="Cài đặt">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+      </button>
+    </div>
+    <div class="largeTitle">Hôm nay</div>
+
+    <div class="wp hero" id="heroWp" role="button" aria-label="Xem toàn màn hình">
+      <div class="shade"></div>
+      <div class="q" id="heroQ"></div>
+      <span class="chip" id="heroChip"></span>
+    </div>
+
+    <div class="actions">
+      <button class="btn tinted" id="btnShuffle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>Đổi ngẫu nhiên
+      </button>
+      <button class="btn primary" id="btnOpenFull">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Xem & lưu
+      </button>
+    </div>
+    <div class="metaLine" id="metaLine"></div>
+  </section>
+
+  <!-- TAB 2: DANH NGÔN -->
+  <section class="view" id="v-quotes">
+    <div class="navbar"><span></span>
+      <button class="iconBtn" id="btnAddQuote" aria-label="Thêm danh ngôn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg></button>
+    </div>
+    <div class="largeTitle">Danh ngôn</div>
+    <div class="search">🔍 Tìm kiếm</div>
+    <div class="section" id="quoteCount"></div>
+    <div class="group" id="quoteList"></div>
+    <div class="footnote">Tắt công tắc để loại câu khỏi danh sách ngẫu nhiên.</div>
+  </section>
+
+  <!-- TAB 3: ẢNH -->
+  <section class="view" id="v-images">
+    <div class="navbar"><span></span>
+      <button class="iconBtn" id="btnAddImage" aria-label="Thêm ảnh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg></button>
+    </div>
+    <div class="largeTitle">Ảnh nền</div>
+    <div class="section" id="imgCount"></div>
+    <div class="grid" id="imgGrid"></div>
+    <div class="footnote">Chạm vào ảnh để bật/tắt khỏi danh sách ngẫu nhiên.</div>
+  </section>
+
+  <!-- TAB 4: TEMPLATE -->
+  <section class="view" id="v-templates">
+    <div class="largeTitle" style="padding-top:14px">Mẫu</div>
+    <div class="seg" id="modeSeg">
+      <button data-mode="fixed">Cố định</button>
+      <button data-mode="random">Ngẫu nhiên</button>
+    </div>
+    <div class="footnote" id="modeHint" style="padding:8px 16px 12px"></div>
+    <div class="tgrid" id="tplGrid"></div>
+  </section>
+
+  <!-- TAB 5: CÀI ĐẶT -->
+  <section class="view" id="v-settings">
+    <div class="largeTitle" style="padding-top:14px">Cài đặt</div>
+    <div class="section">Ngẫu nhiên</div>
+    <div class="group">
+      <div class="row"><span class="grow">Đổi khi mở ứng dụng</span><button class="switch on" data-setting="onOpen"></button></div>
+      <div class="row"><span class="grow">Không lặp lại liên tiếp</span><button class="switch on" data-setting="noRepeat"></button></div>
+      <div class="row"><span class="grow">Hiển thị tác giả</span><button class="switch on" data-setting="showAuthor"></button></div>
+    </div>
+    <div class="section">Chữ</div>
+    <div class="group">
+      <div class="row"><span class="grow">Cỡ chữ</span>
+        <input type="range" id="fsRange" min="16" max="30" value="22" style="width:140px;accent-color:var(--accent)" aria-label="Cỡ chữ"/>
+        <span class="val" id="fsVal">22</span></div>
+    </div>
+    <div class="section">Tự động hóa</div>
+    <div class="group">
+      <div class="row"><span class="grow">Đổi hình nền bằng Phím tắt</span><span class="chev">›</span></div>
+      <div class="row"><span class="grow">Lịch đổi</span><span class="val">Mỗi sáng 6:00</span><span class="chev">›</span></div>
+    </div>
+    <div class="footnote">iOS yêu cầu thao tác qua ứng dụng Phím tắt để tự đặt hình nền.</div>
+    <div class="section">Dữ liệu</div>
+    <div class="group">
+      <div class="row"><span class="grow">Nhập danh ngôn (CSV/JSON)</span><span class="chev">›</span></div>
+      <div class="row"><span class="grow">Lịch sử hình nền</span><span class="chev">›</span></div>
+      <div class="row"><span class="grow danger">Đặt lại dữ liệu</span></div>
+    </div>
+    <div style="height:20px"></div>
+  </section>
+
+  <!-- FULLSCREEN PREVIEW -->
+  <div class="full" id="full">
+    <div class="wp" id="fullWp"><div class="shade"></div><div class="q" id="fullQ"></div></div>
+    <div class="lock" id="lockOverlay">
+      <div class="date">Thứ Hai, 15 tháng 6</div>
+      <div class="time">9:41</div>
+      <div class="zone" id="zone"><span>Vùng đồng hồ</span></div>
+    </div>
+    <div class="fullBar">
+      <button class="glassBtn" id="btnCloseFull" aria-label="Đóng"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      <div style="display:flex;gap:8px">
+        <button class="glassBtn" id="btnToggleLock" aria-label="Ẩn/hiện đồng hồ"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></button>
+        <button class="glassBtn" id="btnShuffleFull" aria-label="Đổi ngẫu nhiên"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg></button>
+        <button class="glassBtn" id="btnSave"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Lưu</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SHEET: thêm danh ngôn -->
+  <div class="sheetBg" id="sheetBg"></div>
+  <div class="sheet" id="sheet">
+    <div class="grabber"></div>
+    <div class="sheetTitle">
+      <button style="color:var(--accent);font-weight:400" id="sheetCancel">Hủy</button>
+      <span>Danh ngôn mới</span>
+      <button style="color:var(--accent)" id="sheetSave">Thêm</button>
+    </div>
+    <div class="group">
+      <div class="row"><textarea id="inQuote" rows="3" placeholder="Nội dung danh ngôn" maxlength="220"></textarea></div>
+      <div class="row"><input id="inAuthor" placeholder="Tác giả (tùy chọn)" maxlength="60"/></div>
+    </div>
+    <div class="footnote">Tối đa 220 ký tự để chữ hiển thị đẹp trên màn hình khóa.</div>
+  </div>
+
+  <!-- TAB BAR -->
+  <nav class="tabbar" id="tabbar">
+    <button class="tab on" data-tab="v-home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="3"/><path d="M9 15h6M9 11h6"/></svg>Hôm nay</button>
+    <button class="tab" data-tab="v-quotes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 7h4v6a4 4 0 0 1-4 4M15 7h4v6a4 4 0 0 1-4 4"/></svg>Danh ngôn</button>
+    <button class="tab" data-tab="v-images"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="m21 16-5-5-9 9"/></svg>Ảnh</button>
+    <button class="tab" data-tab="v-templates"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="2"/><rect x="14" y="3" width="7" height="5" rx="2"/><rect x="14" y="12" width="7" height="9" rx="2"/><rect x="3" y="16" width="7" height="5" rx="2"/></svg>Mẫu</button>
+    <button class="tab" data-tab="v-settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg>Cài đặt</button>
+  </nav>
+  <div class="homeind"></div>
+</div>
+</div>
+
+<script>
+(() => {
+  /* ===================== DATA (RN: src/data/*.ts) ===================== */
+  const images = [
+    {id:'i1', name:'Núi sương',  bg:'linear-gradient(180deg,#F6C9A0 0%,#C9A7B8 30%,#6E7FA3 60%,#2E3B55 100%)', on:true},
+    {id:'i2', name:'Biển xanh',  bg:'linear-gradient(180deg,#9AD0EC 0%,#4FA3C7 45%,#1C5D86 75%,#0B2E4A 100%)', on:true},
+    {id:'i3', name:'Rừng thông', bg:'linear-gradient(180deg,#D7E3C8 0%,#7FA07A 40%,#355E43 75%,#14281C 100%)', on:true},
+    {id:'i4', name:'Hoàng hôn',  bg:'linear-gradient(180deg,#FFB86B 0%,#F0716A 40%,#7B3F78 75%,#2B1B3D 100%)', on:true},
+    {id:'i5', name:'Đêm sao',    bg:'radial-gradient(circle at 70% 20%,#3A4E8C 0%,#1A2350 45%,#05081A 100%)', on:true},
+    {id:'i6', name:'Sa mạc',     bg:'linear-gradient(180deg,#F9E2B8 0%,#E8B67A 45%,#B5733F 80%,#5E3A22 100%)', on:true},
+    {id:'i7', name:'Oải hương',  bg:'linear-gradient(180deg,#E7DDF6 0%,#B49BDB 45%,#6E57A8 80%,#2F2552 100%)', on:false},
+    {id:'i8', name:'Sương sớm',  bg:'linear-gradient(180deg,#F1F3F5 0%,#C9D3DC 50%,#8C9BAA 100%)', on:true},
+    {id:'i9', name:'Mùa thu',    bg:'linear-gradient(180deg,#FCE3B0 0%,#E59A4D 45%,#9A4A22 80%,#3D1C0F 100%)', on:true},
+  ];
+  const quotes = [
+    {id:'q1', text:'Bình yên bắt đầu từ những điều nhỏ bé.', author:'Khuyết danh', on:true},
+    {id:'q2', text:'Không cần hoàn hảo để bắt đầu, nhưng phải bắt đầu để tốt hơn.', author:'Khuyết danh', on:true},
+    {id:'q3', text:'Hành trình vạn dặm bắt đầu từ một bước chân.', author:'Lão Tử', on:true},
+    {id:'q4', text:'Hãy là sự thay đổi mà bạn muốn thấy trên thế giới.', author:'Mahatma Gandhi', on:true},
+    {id:'q5', text:'Mỗi ngày là một cơ hội mới để làm tốt hơn hôm qua.', author:'', on:true},
+    {id:'q6', text:'Kiên nhẫn là sức mạnh lặng lẽ nhất.', author:'Khuyết danh', on:false},
+  ];
+  const templates = [
+    {id:'t-center',  name:'Trung tâm',  on:true},
+    {id:'t-glass',   name:'Kính mờ',    on:true},
+    {id:'t-minimal', name:'Tối giản',   on:true},
+    {id:'t-bold',    name:'Đậm nét',    on:true},
+    {id:'t-frame',   name:'Khung viền', on:false},
+    {id:'t-paper',   name:'Giấy',       on:true},
+  ];
+
+  /* ===================== STATE (RN: zustand store) ===================== */
+  const state = {
+    current:{imageId:'i1', quoteId:'q1', templateId:'t-center'},
+    templateMode:'random',          // 'fixed' | 'random'
+    fixedTemplateId:'t-center',
+    settings:{onOpen:true, noRepeat:true, showAuthor:true, fontSize:22},
+    showLock:true,
+  };
+
+  const $ = s => document.querySelector(s);
+  const $$ = s => [...document.querySelectorAll(s)];
+  const byId = (arr,id) => arr.find(x => x.id === id);
+  const esc = s => String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+  /* ===================== RANDOM ENGINE (RN: src/lib/randomPick.ts) ===================== */
+  function pick(list, lastId){
+    const pool = list.filter(x => x.on);
+    if (!pool.length) return null;
+    const candidates = (state.settings.noRepeat && pool.length > 1) ? pool.filter(x => x.id !== lastId) : pool;
+    return candidates[Math.floor(Math.random() * candidates.length)];
+  }
+  function shuffle(){
+    const c = state.current;
+    const img = pick(images, c.imageId);
+    const q = pick(quotes, c.quoteId);
+    let tpl = state.templateMode === 'fixed' ? byId(templates, state.fixedTemplateId) : pick(templates, c.templateId);
+    if (!img || !q || !tpl){ toast('Cần bật ít nhất 1 ảnh, 1 câu và 1 mẫu'); return; }
+    state.current = {imageId:img.id, quoteId:q.id, templateId:tpl.id};
+    renderHome();
+  }
+
+  /* ===================== <WallpaperCanvas/> ===================== */
+  function paintWallpaper(el, qEl, {imageId, quoteId, templateId}){
+    const img = byId(images,imageId), q = byId(quotes,quoteId);
+    templates.forEach(t => el.classList.remove(t.id));
+    el.classList.add(templateId);
+    el.style.backgroundImage = img.bg;
+    el.style.setProperty('--fs', state.settings.fontSize + 'px');
+    const author = state.settings.showAuthor && q.author ? `<span class="a" style="display:block">— ${esc(q.author)}</span>` : '';
+    qEl.innerHTML = `“${esc(q.text)}”${author}`;
+  }
+
+  /* ===================== RENDER ===================== */
+  function renderHome(){
+    const c = state.current;
+    paintWallpaper($('#heroWp'), $('#heroQ'), c);
+    $('#heroChip').textContent = byId(templates,c.templateId).name + (state.templateMode==='fixed' ? ' · cố định' : ' · ngẫu nhiên');
+    const ni = images.filter(x=>x.on).length, nq = quotes.filter(x=>x.on).length;
+    const nt = state.templateMode==='fixed' ? 1 : templates.filter(x=>x.on).length;
+    $('#metaLine').textContent = `${ni} ảnh · ${nq} câu · ${nt} mẫu → ${ni*nq*nt} kết hợp`;
+    if ($('#full').classList.contains('active')) renderFull();
+  }
+  function renderFull(){
+    paintWallpaper($('#fullWp'), $('#fullQ'), state.current);
+    $('#lockOverlay').style.display = state.showLock ? 'block' : 'none';
+  }
+
+  function renderQuotes(){
+    $('#quoteCount').textContent = `${quotes.filter(q=>q.on).length}/${quotes.length} đang dùng`;
+    $('#quoteList').innerHTML = quotes.map(q => `
+      <div class="row">
+        <div class="grow">
+          <div class="qtext">${esc(q.text)}</div>
+          ${q.author ? `<div class="qauthor">${esc(q.author)}</div>` : ''}
+        </div>
+        <button class="switch ${q.on?'on':''}" data-q="${q.id}" aria-label="Bật/tắt"></button>
+      </div>`).join('');
+  }
+  function renderImages(){
+    $('#imgCount').textContent = `${images.filter(i=>i.on).length}/${images.length} đang dùng`;
+    $('#imgGrid').innerHTML = images.map(i => `
+      <button class="thumb ${i.on?'sel':''}" data-img="${i.id}" style="background-image:${i.bg}" aria-label="${esc(i.name)}">
+        ${i.on?'':'<span class="off"></span>'}<span class="chk"></span>
+      </button>`).join('');
+  }
+  function renderTemplates(){
+    $$('#modeSeg button').forEach(b => b.classList.toggle('on', b.dataset.mode === state.templateMode));
+    $('#modeHint').textContent = state.templateMode === 'fixed'
+      ? 'Chạm để chọn 1 mẫu dùng cho mọi hình nền.'
+      : 'Chạm để bật/tắt mẫu tham gia ngẫu nhiên.';
+    const sample = {imageId:state.current.imageId, quoteId:state.current.quoteId};
+    $('#tplGrid').innerHTML = templates.map(t => {
+      const sel = state.templateMode==='fixed' ? t.id===state.fixedTemplateId : t.on;
+      const excluded = state.templateMode==='random' && !t.on;
+      return `<button class="tcard ${sel?'sel':''} ${excluded?'excluded':''}" data-tpl="${t.id}">
+        <div class="wp" data-preview="${t.id}"><div class="shade"></div><div class="q"></div></div>
+        <div class="tname">${t.name}${sel ? `<span class="pill">${state.templateMode==='fixed'?'Đang dùng':'Bật'}</span>`:''}</div>
+      </button>`;
+    }).join('');
+    $$('#tplGrid .wp').forEach(el => {
+      paintWallpaper(el, el.querySelector('.q'), {...sample, templateId:el.dataset.preview});
+      el.style.setProperty('--fs','11px');
+    });
+  }
+
+  /* ===================== NAV ===================== */
+  function go(id){
+    $$('.view').forEach(v => v.classList.toggle('active', v.id === id));
+    $$('.tab').forEach(t => t.classList.toggle('on', t.dataset.tab === id));
+    ({'v-quotes':renderQuotes,'v-images':renderImages,'v-templates':renderTemplates,'v-home':renderHome})[id]?.();
+  }
+  $$('.tab').forEach(t => t.addEventListener('click', () => go(t.dataset.tab)));
+  $$('[data-goto]').forEach(b => b.addEventListener('click', () => go(b.dataset.goto)));
+
+  /* ===================== EVENTS ===================== */
+  $('#btnShuffle').addEventListener('click', shuffle);
+  const openFull = () => { $('#full').classList.add('active'); $('#statusbar').classList.add('light'); renderFull(); };
+  $('#btnOpenFull').addEventListener('click', openFull);
+  $('#heroWp').addEventListener('click', openFull);
+  $('#btnCloseFull').addEventListener('click', () => { $('#full').classList.remove('active'); $('#statusbar').classList.remove('light'); });
+  $('#btnShuffleFull').addEventListener('click', () => { shuffle(); renderFull(); });
+  $('#btnToggleLock').addEventListener('click', () => { state.showLock = !state.showLock; renderFull(); });
+  $('#btnSave').addEventListener('click', () => toast('✓ Đã lưu vào Ảnh (không gồm đồng hồ)'));
+
+  $('#quoteList').addEventListener('click', e => {
+    const b = e.target.closest('[data-q]'); if (!b) return;
+    const q = byId(quotes,b.dataset.q); q.on = !q.on; renderQuotes(); renderHome();
+  });
+  $('#imgGrid').addEventListener('click', e => {
+    const b = e.target.closest('[data-img]'); if (!b) return;
+    const i = byId(images,b.dataset.img); i.on = !i.on; renderImages(); renderHome();
+  });
+  $('#modeSeg').addEventListener('click', e => {
+    const b = e.target.closest('[data-mode]'); if (!b) return;
+    state.templateMode = b.dataset.mode;
+    if (state.templateMode==='fixed') state.current.templateId = state.fixedTemplateId;
+    renderTemplates(); renderHome();
+  });
+  $('#tplGrid').addEventListener('click', e => {
+    const b = e.target.closest('[data-tpl]'); if (!b) return;
+    if (state.templateMode==='fixed'){ state.fixedTemplateId = b.dataset.tpl; state.current.templateId = b.dataset.tpl; }
+    else {
+      const t = byId(templates,b.dataset.tpl);
+      if (t.on && templates.filter(x=>x.on).length===1){ toast('Cần giữ ít nhất 1 mẫu'); return; }
+      t.on = !t.on;
+    }
+    renderTemplates(); renderHome();
+  });
+  $$('[data-setting]').forEach(sw => sw.addEventListener('click', () => {
+    const k = sw.dataset.setting; state.settings[k] = !state.settings[k];
+    sw.classList.toggle('on', state.settings[k]); renderHome();
+  }));
+  $('#fsRange').addEventListener('input', e => {
+    const v = Math.min(30, Math.max(16, parseInt(e.target.value,10) || 22));
+    state.settings.fontSize = v; $('#fsVal').textContent = v; renderHome();
+  });
+
+  /* Sheet thêm danh ngôn */
+  const openSheet = o => { $('#sheet').classList.toggle('open',o); $('#sheetBg').classList.toggle('open',o); };
+  $('#btnAddQuote').addEventListener('click', () => { $('#inQuote').value=''; $('#inAuthor').value=''; openSheet(true); });
+  $('#sheetCancel').addEventListener('click', () => openSheet(false));
+  $('#sheetBg').addEventListener('click', () => openSheet(false));
+  $('#sheetSave').addEventListener('click', () => {
+    const text = $('#inQuote').value.trim();
+    if (!text){ toast('Vui lòng nhập nội dung'); return; }
+    quotes.unshift({id:'q'+Date.now(), text, author:$('#inAuthor').value.trim(), on:true});
+    openSheet(false); renderQuotes(); renderHome(); toast('✓ Đã thêm danh ngôn');
+  });
+  $('#btnAddImage').addEventListener('click', () => toast('Mở thư viện ảnh (expo-image-picker)'));
+
+  let tt; function toast(m){ const t=$('#toast'); t.textContent=m; t.classList.add('show'); clearTimeout(tt); tt=setTimeout(()=>t.classList.remove('show'),1800); }
+
+  /* Mô phỏng "mở app → random" */
+  if (state.settings.onOpen) shuffle(); else renderHome();
+})();
+</script>
+</body>
+</html>
