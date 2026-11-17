@@ -4,7 +4,7 @@ Trạng thái: 🔄
 
 | Bước | Nội dung | Trạng thái | Ngày | Commit |
 |---|---|---|---|---|
-| 1 | Khởi tạo dự án và cấu trúc thư mục | ✅ | 2026-11-17 | Pending |
+| 1 | Khởi tạo dự án và cấu trúc thư mục | ✅ | 2026-11-17 | 69507b3 |
 | 2 | Lint, format, script npm | ⬜ | | |
 | 3 | Tasks dashboard | ⬜ | | |
 | 4 | Tab rỗng + chạy trên iPhone | ⬜ | | |
