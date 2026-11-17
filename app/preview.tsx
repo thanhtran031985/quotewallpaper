@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useMemo } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   View,
   Text,
@@ -38,7 +38,7 @@ export default function PreviewScreen() {
   const [reduceMotion, setReduceMotion] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
 
-  const exportViewRef = useRef<View>(null);
+  const exportViewRef = useRef<React.ElementRef<typeof View>>(null);
 
   const current = useLibraryStore((state) => state.current);
   const images = useLibraryStore((state) => state.images);
@@ -238,11 +238,7 @@ export default function PreviewScreen() {
       )}
 
       {/* 4. Toast thông báo */}
-      <Toast
-        visible={showToast}
-        message={toastMessage}
-        onDismiss={() => setShowToast(false)}
-      />
+      <Toast visible={showToast} message={toastMessage} onDismiss={() => setShowToast(false)} />
 
       {/* 5. Sheet hướng dẫn cài hình nền iOS (3 bước) */}
       <Modal visible={showGuideModal} transparent animationType="slide">
@@ -272,7 +268,8 @@ export default function PreviewScreen() {
                 </View>
                 <Text style={styles.stepText}>
                   Bấm <Text style={styles.bold}>Thêm hình nền mới</Text>, chọn album{' '}
-                  <Text style={styles.bold}>"{settings.exportAlbumName || 'Quote Wallpaper'}"</Text>.
+                  <Text style={styles.bold}>"{settings.exportAlbumName || 'Quote Wallpaper'}"</Text>
+                  .
                 </Text>
               </View>
 

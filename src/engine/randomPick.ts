@@ -64,7 +64,7 @@ export function pickSelection(
   settings: Settings,
   prev?: Selection | null,
   pinned?: PinnedState,
-  rng: () => number = Math.random
+  rng: () => number = Math.random,
 ): Result<Selection> {
   const enabledImages = lib.images.filter((img) => img.enabled && !img.fileMissing);
   const enabledQuotes = lib.quotes.filter((q) => q.enabled);
@@ -131,7 +131,11 @@ export function pickSelection(
 
   // 3. Chọn Template (R1, R2, R3, R4)
   let chosenTemplateId: Id;
-  if (pinned?.template && prev?.templateId && enabledTemplates.some((t) => t.id === prev.templateId)) {
+  if (
+    pinned?.template &&
+    prev?.templateId &&
+    enabledTemplates.some((t) => t.id === prev.templateId)
+  ) {
     chosenTemplateId = prev.templateId;
   } else if (settings.templateMode === 'fixed') {
     // Chế độ Cố định

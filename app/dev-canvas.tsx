@@ -1,12 +1,5 @@
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-  Dimensions,
-} from 'react-native';
+import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 import { Stack } from 'expo-router';
 import { WallpaperCanvas } from '../src/components/WallpaperCanvas';
 import { LockScreenOverlay } from '../src/components/LockScreenOverlay';

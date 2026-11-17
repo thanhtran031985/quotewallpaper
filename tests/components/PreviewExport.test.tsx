@@ -88,7 +88,9 @@ describe('PreviewScreen Export & Wallpaper Setup Guide (08-export-settings-mvp S
     const longQuote = {
       ...DEFAULT_QUOTES[0],
       id: 'quote-overflow',
-      text: 'Văn bản rất dài này sẽ chắc chắn bị tràn khi hiển thị trong khung màn hình. '.repeat(20),
+      text: 'Văn bản rất dài này sẽ chắc chắn bị tràn khi hiển thị trong khung màn hình. '.repeat(
+        20,
+      ),
     };
 
     useLibraryStore.setState({

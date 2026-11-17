@@ -22,7 +22,7 @@ const FONT_CHAR_WIDTH_RATIOS: Record<FontFamily, number> = {
   Sans: 0.52,
   Serif: 0.55,
   Rounded: 0.53,
-  Mono: 0.60,
+  Mono: 0.6,
   Handwriting: 0.48,
 };
 

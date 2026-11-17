@@ -57,9 +57,7 @@ jest.mock('expo-linear-gradient', () => {
 
 // Mock exportWallpaper service
 jest.mock('@/services/exportWallpaper', () => ({
-  captureAndSaveWallpaper: jest.fn(() =>
-    Promise.resolve({ ok: true, data: 'ph://test-asset' }),
-  ),
+  captureAndSaveWallpaper: jest.fn(() => Promise.resolve({ ok: true, data: 'ph://test-asset' })),
   getScreenExportDimensions: jest.fn(() => ({
     width: 1080,
     height: 1920,

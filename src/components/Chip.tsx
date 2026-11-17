@@ -11,13 +11,7 @@ export interface ChipProps {
   testID?: string;
 }
 
-export function Chip({
-  label,
-  icon,
-  active = false,
-  onPress,
-  testID = 'chip',
-}: ChipProps) {
+export function Chip({ label, icon, active = false, onPress, testID = 'chip' }: ChipProps) {
   const handlePress = () => {
     if (onPress) {
       triggerImpact();

@@ -82,9 +82,7 @@ export default function SettingsScreen() {
         </View>
 
         {/* Section 1: NGẪU NHIÊN */}
-        <Text style={[styles.sectionTitle, { color: theme.colors.text.tertiary }]}>
-          NGẪU NHIÊN
-        </Text>
+        <Text style={[styles.sectionTitle, { color: theme.colors.text.tertiary }]}>NGẪU NHIÊN</Text>
         <View style={[styles.card, { backgroundColor: theme.colors.bg.card }]}>
           {/* Đổi khi mở ứng dụng */}
           <View style={styles.row}>
@@ -166,9 +164,7 @@ export default function SettingsScreen() {
         </Text>
 
         {/* Section 2: GIAO DIỆN */}
-        <Text style={[styles.sectionTitle, { color: theme.colors.text.tertiary }]}>
-          GIAO DIỆN
-        </Text>
+        <Text style={[styles.sectionTitle, { color: theme.colors.text.tertiary }]}>GIAO DIỆN</Text>
         <View style={[styles.card, { backgroundColor: theme.colors.bg.card, padding: 6 }]}>
           <View style={styles.segmentedContainer}>
             <TouchableOpacity
@@ -311,9 +307,7 @@ export default function SettingsScreen() {
         </View>
 
         {/* Section 4: DỮ LIỆU */}
-        <Text style={[styles.sectionTitle, { color: theme.colors.text.tertiary }]}>
-          DỮ LIỆU
-        </Text>
+        <Text style={[styles.sectionTitle, { color: theme.colors.text.tertiary }]}>DỮ LIỆU</Text>
         <View style={[styles.card, { backgroundColor: theme.colors.bg.card }]}>
           {/* Nhập/xuất sao lưu */}
           <View style={[styles.row, { opacity: 0.5 }]}>
@@ -349,19 +343,22 @@ export default function SettingsScreen() {
         </View>
 
         {/* Section 5: GIỚI THIỆU */}
-        <Text style={[styles.sectionTitle, { color: theme.colors.text.tertiary }]}>
-          GIỚI THIỆU
-        </Text>
+        <Text style={[styles.sectionTitle, { color: theme.colors.text.tertiary }]}>GIỚI THIỆU</Text>
         <View style={[styles.card, { backgroundColor: theme.colors.bg.card }]}>
           <View style={styles.row}>
             <Text style={[styles.rowLabel, { color: theme.colors.text.primary }]}>Phiên bản</Text>
-            <Text style={[styles.rowValue, { color: theme.colors.text.secondary }]}>1.0.0 (MVP)</Text>
+            <Text style={[styles.rowValue, { color: theme.colors.text.secondary }]}>
+              1.0.0 (MVP)
+            </Text>
           </View>
           <View style={[styles.separator, { backgroundColor: theme.colors.border.separator }]} />
           <View style={[styles.row, { flexDirection: 'column', alignItems: 'flex-start', gap: 6 }]}>
-            <Text style={[styles.rowLabel, { color: theme.colors.text.primary }]}>Quyền riêng tư</Text>
+            <Text style={[styles.rowLabel, { color: theme.colors.text.primary }]}>
+              Quyền riêng tư
+            </Text>
             <Text style={[styles.privacyNote, { color: theme.colors.text.tertiary }]}>
-              Toàn bộ dữ liệu nằm trên iPhone của bạn. Ứng dụng không gửi bất kỳ dữ liệu nào ra bên ngoài.
+              Toàn bộ dữ liệu nằm trên iPhone của bạn. Ứng dụng không gửi bất kỳ dữ liệu nào ra bên
+              ngoài.
             </Text>
           </View>
         </View>

@@ -100,9 +100,7 @@ export default function ImageFocalScreen() {
           <Text style={[styles.headerBtnText, { color: theme.colors.tint.primary }]}>Hủy</Text>
         </TouchableOpacity>
 
-        <Text style={[styles.headerTitle, { color: theme.colors.text.primary }]}>
-          Điểm lấy nét
-        </Text>
+        <Text style={[styles.headerTitle, { color: theme.colors.text.primary }]}>Điểm lấy nét</Text>
 
         <TouchableOpacity
           onPress={handleSave}
@@ -111,11 +109,7 @@ export default function ImageFocalScreen() {
           accessibilityLabel="Lưu"
         >
           <Text
-            style={[
-              styles.headerBtnText,
-              styles.saveBtnText,
-              { color: theme.colors.tint.primary },
-            ]}
+            style={[styles.headerBtnText, styles.saveBtnText, { color: theme.colors.tint.primary }]}
           >
             Lưu
           </Text>
@@ -173,10 +167,7 @@ export default function ImageFocalScreen() {
           </Text>
 
           <TouchableOpacity
-            style={[
-              styles.resetBtn,
-              { backgroundColor: isDark ? '#2C2C2E' : '#E5E5EA' },
-            ]}
+            style={[styles.resetBtn, { backgroundColor: isDark ? '#2C2C2E' : '#E5E5EA' }]}
             onPress={handleResetCenter}
           >
             <Ionicons name="refresh" size={14} color={theme.colors.tint.primary} />

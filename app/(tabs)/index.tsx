@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  TouchableOpacity,
-  Dimensions,
-} from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -82,7 +75,7 @@ export default function TodayScreen() {
       <Text style={[styles.largeTitle, { color: theme.colors.text.primary }]}>Hôm nay</Text>
 
       {/* 3. Hero Card hoặc EmptyState */}
-      {(!current || !curImage || !curQuote || !curTemplate) ? (
+      {!current || !curImage || !curQuote || !curTemplate ? (
         <View style={styles.emptyContainer}>
           {enabledImages.length === 0 ? (
             <EmptyState
@@ -160,11 +153,7 @@ export default function TodayScreen() {
             <Chip
               label="Mẫu"
               icon={
-                <Ionicons
-                  name={pinned.template ? 'pin' : 'pin-outline'}
-                  size={13}
-                  color="#fff"
-                />
+                <Ionicons name={pinned.template ? 'pin' : 'pin-outline'} size={13} color="#fff" />
               }
               active={pinned.template}
               onPress={() => togglePin('template')}

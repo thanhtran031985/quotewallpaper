@@ -1,5 +1,5 @@
 import { Dimensions, PixelRatio } from 'react-native';
-import * as MediaLibrary from 'expo-media-library';
+import * as MediaLibrary from 'expo-media-library/legacy';
 import { captureRef } from 'react-native-view-shot';
 import { Result } from '../domain/types';
 

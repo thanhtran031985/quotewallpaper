@@ -127,7 +127,9 @@ describe('QuoteEditScreen (Sheet Thêm/Sửa danh ngôn)', () => {
 
   it('chế độ sửa: nạp dữ liệu cũ và cập nhật thành công', async () => {
     mockParams = { id: 'q-existing' };
-    const { getByDisplayValue, getByText, getByPlaceholderText } = await render(<QuoteEditScreen />);
+    const { getByDisplayValue, getByText, getByPlaceholderText } = await render(
+      <QuoteEditScreen />,
+    );
 
     expect(getByText('Sửa danh ngôn')).toBeTruthy();
     expect(getByDisplayValue('Câu danh ngôn đã tồn tại sẵn.')).toBeTruthy();

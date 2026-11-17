@@ -50,10 +50,7 @@ export default function TemplatesScreen() {
   const fixedTemplateId = useSettingsStore((state) => state.fixedTemplateId);
   const setFixedTemplateId = useSettingsStore((state) => state.setFixedTemplateId);
 
-  const userTemplates = useMemo(
-    () => templates.filter((t) => t.source === 'user'),
-    [templates],
-  );
+  const userTemplates = useMemo(() => templates.filter((t) => t.source === 'user'), [templates]);
   const builtinTemplates = useMemo(
     () => templates.filter((t) => t.source === 'builtin'),
     [templates],
@@ -168,12 +165,7 @@ export default function TemplatesScreen() {
         accessibilityLabel={`${tpl.name}, ${isFixedSelected ? 'đang cố định' : tpl.enabled ? 'đang bật' : 'đang tắt'}`}
       >
         {/* Preview Area */}
-        <View
-          style={[
-            styles.cardPreview,
-            { backgroundColor: isDark ? '#1C1C1E' : '#2C2C2E' },
-          ]}
-        >
+        <View style={[styles.cardPreview, { backgroundColor: isDark ? '#1C1C1E' : '#2C2C2E' }]}>
           {/* Mini Quote Simulation */}
           <View
             style={[
@@ -211,10 +203,7 @@ export default function TemplatesScreen() {
             </Text>
             {tpl.style.author.show && (
               <Text
-                style={[
-                  styles.miniAuthorText,
-                  { color: tpl.style.text.color, opacity: 0.8 },
-                ]}
+                style={[styles.miniAuthorText, { color: tpl.style.text.color, opacity: 0.8 }]}
                 numberOfLines={1}
               >
                 {tpl.style.author.prefix} Mẹ Teresa
@@ -237,21 +226,14 @@ export default function TemplatesScreen() {
                 { backgroundColor: isRandomEnabled ? '#34C759' : 'rgba(0, 0, 0, 0.4)' },
               ]}
             >
-              <Ionicons
-                name={isRandomEnabled ? 'checkmark' : 'close'}
-                size={12}
-                color="#FFFFFF"
-              />
+              <Ionicons name={isRandomEnabled ? 'checkmark' : 'close'} size={12} color="#FFFFFF" />
             </View>
           )}
         </View>
 
         {/* Name footer */}
         <View style={styles.cardFooter}>
-          <Text
-            style={[styles.cardTitle, { color: theme.colors.text.primary }]}
-            numberOfLines={1}
-          >
+          <Text style={[styles.cardTitle, { color: theme.colors.text.primary }]} numberOfLines={1}>
             {tpl.name}
           </Text>
           <Text style={[styles.cardSub, { color: theme.colors.text.secondary }]}>
@@ -299,9 +281,7 @@ export default function TemplatesScreen() {
               name="bookmark"
               size={15}
               color={
-                templateMode === 'fixed'
-                  ? theme.colors.tint.primary
-                  : theme.colors.text.secondary
+                templateMode === 'fixed' ? theme.colors.tint.primary : theme.colors.text.secondary
               }
             />
             <Text
@@ -337,9 +317,7 @@ export default function TemplatesScreen() {
               name="shuffle"
               size={16}
               color={
-                templateMode === 'random'
-                  ? theme.colors.tint.primary
-                  : theme.colors.text.secondary
+                templateMode === 'random' ? theme.colors.tint.primary : theme.colors.text.secondary
               }
             />
             <Text
@@ -470,9 +448,7 @@ export default function TemplatesScreen() {
             {selectedTemplate?.source === 'user' && (
               <TouchableOpacity style={styles.menuItem} onPress={handleDelete}>
                 <Ionicons name="trash-outline" size={20} color={theme.colors.tint.destructive} />
-                <Text
-                  style={[styles.menuItemText, { color: theme.colors.tint.destructive }]}
-                >
+                <Text style={[styles.menuItemText, { color: theme.colors.tint.destructive }]}>
                   Xóa mẫu này
                 </Text>
               </TouchableOpacity>

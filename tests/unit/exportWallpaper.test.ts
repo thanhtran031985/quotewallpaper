@@ -2,11 +2,11 @@ import {
   getScreenExportDimensions,
   captureAndSaveWallpaper,
 } from '../../src/services/exportWallpaper';
-import * as MediaLibrary from 'expo-media-library';
+import * as MediaLibrary from 'expo-media-library/legacy';
 import { captureRef } from 'react-native-view-shot';
 import { Dimensions, PixelRatio } from 'react-native';
 
-jest.mock('expo-media-library');
+jest.mock('expo-media-library/legacy');
 jest.mock('react-native-view-shot');
 
 describe('exportWallpaper service (08-export-settings-mvp Step 1)', () => {

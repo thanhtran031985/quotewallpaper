@@ -12,7 +12,7 @@ Bảng tổng các task, chia theo giai đoạn GĐ0–GĐ3 (docs/PRD.md mục G
 | 05 | [05-quotes-ui](05-quotes-ui/task.md) — Tab Danh ngôn: danh sách, tìm kiếm, thêm/sửa, bật/tắt, yêu thích | ✅ | 01 | feat/05-quotes-ui |
 | 06 | [06-images-ui](06-images-ui/task.md) — Tab Ảnh: chọn từ Photos, chép vào app, bật/tắt, điểm lấy nét, xóa | ✅ | 01 | feat/06-images-ui |
 | 07 | [07-templates-ui](07-templates-ui/task.md) — Tab Mẫu: chế độ Cố định / Ngẫu nhiên, bật/tắt, nhân bản, xóa | ✅ | 03 | feat/07-templates-ui |
-| 08 | [08-export-settings-mvp](08-export-settings-mvp/task.md) — Lưu vào Ảnh, Cài đặt, Sáng/Tối, hoàn thiện MVP | 🔄 | 04, 05, 06, 07 | feat/08-export-settings-mvp |
+| 08 | [08-export-settings-mvp](08-export-settings-mvp/task.md) — Lưu vào Ảnh, Cài đặt, Sáng/Tối, hoàn thiện MVP | ✅ | 04, 05, 06, 07 | feat/08-export-settings-mvp |
 | 09 | [09-template-editor](09-template-editor/task.md) — Trình tạo/sửa template tự tạo | ⬜ | 07, 08 | feat/09-template-editor |
 | 10 | [10-batch-export-shortcuts](10-batch-export-shortcuts/task.md) — Xuất hàng loạt vào album và hướng dẫn Phím tắt | ⬜ | 08 | feat/10-batch-export-shortcuts |
 | 11 | [11-import-history](11-import-history/task.md) — Nhập/xuất danh ngôn (JSON/CSV) và lịch sử hình nền | ⬜ | 05, 08 | feat/11-import-history |

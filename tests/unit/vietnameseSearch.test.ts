@@ -1,7 +1,4 @@
-import {
-  removeVietnameseDiacritics,
-  matchesSearch,
-} from '@/engine/vietnameseSearch';
+import { removeVietnameseDiacritics, matchesSearch } from '@/engine/vietnameseSearch';
 
 describe('vietnameseSearch engine', () => {
   it('TC-LOG-01: Tìm không dấu ra kết quả có dấu', () => {

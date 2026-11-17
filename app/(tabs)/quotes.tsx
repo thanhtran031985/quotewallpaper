@@ -117,10 +117,7 @@ export default function QuotesScreen() {
         activeOpacity={0.7}
       >
         <View style={styles.rowContent}>
-          <Text
-            style={[styles.quoteText, { color: theme.colors.text.primary }]}
-            numberOfLines={2}
-          >
+          <Text style={[styles.quoteText, { color: theme.colors.text.primary }]} numberOfLines={2}>
             {item.text}
           </Text>
           {item.author ? (
@@ -337,7 +334,9 @@ export default function QuotesScreen() {
               style={[styles.modalCloseBtn, { backgroundColor: theme.colors.bg.secondary }]}
               onPress={() => setShowMenuModal(false)}
             >
-              <Text style={[styles.modalCloseText, { color: theme.colors.text.primary }]}>Đóng</Text>
+              <Text style={[styles.modalCloseText, { color: theme.colors.text.primary }]}>
+                Đóng
+              </Text>
             </TouchableOpacity>
           </View>
         </TouchableOpacity>

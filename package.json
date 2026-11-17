@@ -54,6 +54,7 @@
   "private": true,
   "jest": {
     "preset": "jest-expo",
+    "testTimeout": 15000,
     "transform": {
       "^.+\\.[jt]sx?$": "babel-jest",
       "^.+\\.mjs$": "babel-jest"

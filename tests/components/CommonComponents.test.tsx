@@ -84,12 +84,7 @@ describe('Common Components', () => {
     it('render nhãn và phản hồi trạng thái active / pinned', async () => {
       const onPressMock = jest.fn();
       const { getByText, getByTestId } = await render(
-        <Chip
-          label="Ảnh"
-          active={true}
-          onPress={onPressMock}
-          testID="chip-image"
-        />,
+        <Chip label="Ảnh" active={true} onPress={onPressMock} testID="chip-image" />,
       );
 
       expect(getByText('Ảnh')).toBeTruthy();

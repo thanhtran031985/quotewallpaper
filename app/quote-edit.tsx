@@ -143,12 +143,15 @@ export default function QuoteEditScreen() {
       >
         {/* Text Section */}
         <View style={styles.sectionHeaderRow}>
-          <Text style={[styles.sectionTitle, { color: theme.colors.text.secondary }]}>NỘI DUNG</Text>
+          <Text style={[styles.sectionTitle, { color: theme.colors.text.secondary }]}>
+            NỘI DUNG
+          </Text>
           <Text
             style={[
               styles.counter,
               {
-                color: text.length > 220 ? theme.colors.tint.destructive : theme.colors.text.tertiary,
+                color:
+                  text.length > 220 ? theme.colors.tint.destructive : theme.colors.text.tertiary,
               },
             ]}
           >

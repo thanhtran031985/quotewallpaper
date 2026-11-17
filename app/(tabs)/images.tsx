@@ -160,12 +160,7 @@ export default function ImagesScreen() {
 
         {/* Missing File Warning Badge */}
         {item.fileMissing && (
-          <View
-            style={[
-              styles.badge,
-              { left: 6, right: undefined, backgroundColor: '#FF9500' },
-            ]}
-          >
+          <View style={[styles.badge, { left: 6, right: undefined, backgroundColor: '#FF9500' }]}>
             <Ionicons name="warning" size={12} color="#FFFFFF" />
           </View>
         )}
@@ -254,10 +249,7 @@ export default function ImagesScreen() {
             accessibilityLabel="Chọn ảnh từ Thư viện Photos"
           >
             <View
-              style={[
-                styles.addIconCircle,
-                { backgroundColor: isDark ? '#2C2C2E' : '#E5E5EA' },
-              ]}
+              style={[styles.addIconCircle, { backgroundColor: isDark ? '#2C2C2E' : '#E5E5EA' }]}
             >
               <Ionicons name="add" size={28} color={theme.colors.tint.primary} />
             </View>
@@ -358,9 +350,7 @@ export default function ImagesScreen() {
             {selectedImage?.source === 'user' && (
               <TouchableOpacity style={styles.menuItem} onPress={handleDeleteSelected}>
                 <Ionicons name="trash-outline" size={20} color={theme.colors.tint.destructive} />
-                <Text
-                  style={[styles.menuItemText, { color: theme.colors.tint.destructive }]}
-                >
+                <Text style={[styles.menuItemText, { color: theme.colors.tint.destructive }]}>
                   Xóa ảnh này
                 </Text>
               </TouchableOpacity>

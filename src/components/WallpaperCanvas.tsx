@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Dimensions,
-  StyleProp,
-  ViewStyle,
-} from 'react-native';
+import { View, Text, StyleSheet, Dimensions, StyleProp, ViewStyle } from 'react-native';
 import { Image } from 'expo-image';
 import { BlurView } from 'expo-blur';
 import { LinearGradient } from 'expo-linear-gradient';
