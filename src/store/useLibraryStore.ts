@@ -198,8 +198,8 @@ export const useLibraryStore = create<LibraryStore>()(
         const now = new Date().toISOString();
         const newImage: WallpaperImage = {
           ...imgData,
-          id: generateId('img'),
-          createdAt: now,
+          id: (imgData as any).id || generateId('img'),
+          createdAt: (imgData as any).createdAt || now,
         };
 
         set({ images: [newImage, ...images] });
