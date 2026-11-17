@@ -15,7 +15,7 @@
 ## 3. Trên iPhone (người dùng thử trong Expo Go)
 | Mã TC | Nội dung kiểm thử | Kết quả mong đợi | Trạng thái |
 |---|---|---|---|
-| **TC-IOS-01** | Mở màn dev trên iPhone | Không giật khi cuộn | ⬜ |
+| **TC-IOS-01** | Mở màn dev trên iPhone | Không giật khi cuộn | ✅ |
 
 ## 4. Hồi quy
 | Mã TC | Lệnh kiểm tra | Tiêu chí đạt | Trạng thái |
