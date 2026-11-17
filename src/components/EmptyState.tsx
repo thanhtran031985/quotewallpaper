@@ -24,14 +24,14 @@ export function EmptyState({
 
   return (
     <View testID={testID} style={styles.container}>
-      <View style={[styles.iconCircle, { backgroundColor: theme.colors.card }]}>
-        <Ionicons name={icon} size={36} color={theme.colors.accent} />
+      <View style={[styles.iconCircle, { backgroundColor: theme.colors.bg.card }]}>
+        <Ionicons name={icon} size={36} color={theme.colors.tint.primary} />
       </View>
-      <Text style={[styles.title, { color: theme.colors.text }]}>{title}</Text>
-      <Text style={[styles.message, { color: theme.colors.textSecondary }]}>{message}</Text>
+      <Text style={[styles.title, { color: theme.colors.text.primary }]}>{title}</Text>
+      <Text style={[styles.message, { color: theme.colors.text.secondary }]}>{message}</Text>
       {actionLabel && onAction && (
         <TouchableOpacity
-          style={[styles.actionBtn, { backgroundColor: theme.colors.accent }]}
+          style={[styles.actionBtn, { backgroundColor: theme.colors.tint.primary }]}
           onPress={onAction}
           activeOpacity={0.8}
         >

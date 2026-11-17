@@ -61,25 +61,25 @@ export default function TodayScreen() {
 
   return (
     <ScrollView
-      style={[styles.container, { backgroundColor: theme.colors.background }]}
+      style={[styles.container, { backgroundColor: theme.colors.bg.primary }]}
       contentContainerStyle={[styles.content, { paddingTop: insets.top + 8, paddingBottom: 110 }]}
       showsVerticalScrollIndicator={false}
     >
       {/* 1. Navbar */}
       <View style={styles.navbar}>
-        <Text style={[styles.dateText, { color: theme.colors.textSecondary }]}>{dateStr}</Text>
+        <Text style={[styles.dateText, { color: theme.colors.text.secondary }]}>{dateStr}</Text>
         <TouchableOpacity
-          style={[styles.iconBtn, { backgroundColor: theme.colors.fill }]}
+          style={[styles.iconBtn, { backgroundColor: theme.colors.bg.secondary }]}
           onPress={() => router.push('/(tabs)/settings')}
           accessibilityRole="button"
           accessibilityLabel="Cài đặt"
         >
-          <Ionicons name="settings-outline" size={20} color={theme.colors.accent} />
+          <Ionicons name="settings-outline" size={20} color={theme.colors.tint.primary} />
         </TouchableOpacity>
       </View>
 
       {/* 2. Large Title */}
-      <Text style={[styles.largeTitle, { color: theme.colors.text }]}>Hôm nay</Text>
+      <Text style={[styles.largeTitle, { color: theme.colors.text.primary }]}>Hôm nay</Text>
 
       {/* 3. Hero Card hoặc EmptyState */}
       {(!current || !curImage || !curQuote || !curTemplate) ? (
@@ -142,7 +142,7 @@ export default function TodayScreen() {
 
           {/* 4. Thanh Ghim (Pin bar) */}
           <View style={styles.pinBar}>
-            <Text style={[styles.pinLabel, { color: theme.colors.textSecondary }]}>Ghim:</Text>
+            <Text style={[styles.pinLabel, { color: theme.colors.text.secondary }]}>Ghim:</Text>
             <Chip
               label="Ảnh"
               icon={<Ionicons name={pinned.image ? 'pin' : 'pin-outline'} size={13} color="#fff" />}
@@ -176,7 +176,7 @@ export default function TodayScreen() {
           <View style={styles.actions}>
             <GlassButton
               label="Đổi ngẫu nhiên"
-              icon={<Ionicons name="shuffle" size={18} color={theme.colors.accent} />}
+              icon={<Ionicons name="shuffle" size={18} color={theme.colors.tint.primary} />}
               onPress={() => shuffle()}
               variant="tinted"
               style={styles.actionBtn}
@@ -192,8 +192,8 @@ export default function TodayScreen() {
 
           {/* 6. Dòng thống kê */}
           <View style={styles.metaLine}>
-            <Ionicons name="sparkles-outline" size={13} color={theme.colors.textSecondary} />
-            <Text style={[styles.metaText, { color: theme.colors.textSecondary }]}>
+            <Ionicons name="sparkles-outline" size={13} color={theme.colors.text.secondary} />
+            <Text style={[styles.metaText, { color: theme.colors.text.secondary }]}>
               {combinations} tổ hợp khả dụng
             </Text>
           </View>
