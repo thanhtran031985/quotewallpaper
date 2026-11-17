@@ -8,7 +8,7 @@
 ## 2. Giao diện (Sáng / Tối)
 | Mã TC | Nội dung kiểm thử | Kết quả mong đợi | Trạng thái |
 |---|---|---|---|
-| **TC-UI-01** | Lưu câu overflow | Hỏi xác nhận trước | ⬜ |
+| **TC-UI-01** | Lưu câu overflow | Hỏi xác nhận trước | ✅ |
 | **TC-UI-02** | Giao diện Tối | Mọi tab đúng màu, chữ đọc rõ | ⬜ |
 
 ## 3. Trên iPhone (người dùng thử trong Expo Go)

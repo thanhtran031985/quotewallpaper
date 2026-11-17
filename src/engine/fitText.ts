@@ -99,14 +99,17 @@ export function fitText(text: string, options: FitTextOptions): FitTextResult {
   // Ở minFontSize vẫn tràn containerHeight -> cắt ngắn với '…'
   const finalFontSize = minFontSize;
   const lineHeight = finalFontSize * lineHeightMultiplier;
-  const maxLines = Math.max(1, Math.floor(containerHeight / lineHeight));
+  const maxLines = Math.max(1, Math.floor(containerHeight / lineHeight) || 1);
   const charWidth = finalFontSize * ratio;
-  const charsPerLine = Math.max(1, Math.floor(containerWidth / charWidth));
+  const charsPerLine = Math.max(1, Math.floor(containerWidth / charWidth) || 1);
   const allLines = wrapLines(processedText, charsPerLine);
 
   const displayLines = allLines.slice(0, maxLines);
+  if (displayLines.length === 0) {
+    displayLines.push('');
+  }
   const lastLineIndex = displayLines.length - 1;
-  let lastLine = displayLines[lastLineIndex];
+  let lastLine = displayLines[lastLineIndex] || '';
 
   if (lastLine.length > 3) {
     lastLine = lastLine.slice(0, Math.max(1, lastLine.length - 3)).trim() + '…';

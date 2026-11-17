@@ -5,10 +5,11 @@ Trạng thái: 🔄
 | Bước | Nội dung | Trạng thái | Ngày | Commit |
 |---|---|---|---|---|
 | 1 | Export service | ✅ | 2026-11-17 | feat(08): step 1 - exportWallpaper service with media library and pixel scaling |
-| 2 | Nối nút Lưu + hướng dẫn | ⬜ | | |
-| 3 | Cài đặt + giao diện | ⬜ | | |
+| 2 | Nối nút Lưu + hướng dẫn | ✅ | 2026-11-17 | feat(08): step 2 - save wallpaper button, overflow confirmation alert, and iOS wallpaper setup guide |
+| 3 | Cài đặt + giao diện | 🔄 | | |
 | 4 | Rà soát MVP | ⬜ | | |
 
 ## Nhật ký
 - 2026-11-17: Khởi tạo nhánh `feat/08-export-settings-mvp`. Cài đặt `react-native-view-shot` và `expo-media-library`.
 - 2026-11-17: Hoàn thành bước 1. Hiện thực `src/services/exportWallpaper.ts` với hàm tính kích thước chuẩn pixel màn hình (`width × height × scale` - TC-LOG-01) và hàm chụp `captureAndSaveWallpaper` lưu ảnh chất lượng JPEG 0.92 vào thư viện Ảnh và album "Quote Wallpaper".
+- 2026-11-17: Hoàn thành bước 2. Tích hợp canvas xuất ẩn không chứa lockscreen overlay/buttons, xử lý kiểm tra overflow R14 và hiển thị Alert cảnh báo rút gọn văn bản (TC-UI-01), hiển thị sheet 3 bước hướng dẫn cài hình nền iOS khi lưu thành công.

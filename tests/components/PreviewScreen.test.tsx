@@ -55,6 +55,25 @@ jest.mock('expo-linear-gradient', () => {
   };
 });
 
+// Mock exportWallpaper service
+jest.mock('@/services/exportWallpaper', () => ({
+  captureAndSaveWallpaper: jest.fn(() =>
+    Promise.resolve({ ok: true, data: 'ph://test-asset' }),
+  ),
+  getScreenExportDimensions: jest.fn(() => ({
+    width: 1080,
+    height: 1920,
+    scale: 2,
+    pixelWidth: 2160,
+    pixelHeight: 3840,
+  })),
+}));
+
+// Mock react-native-view-shot
+jest.mock('react-native-view-shot', () => ({
+  captureRef: jest.fn(() => Promise.resolve('ph://mock-uri')),
+}));
+
 // Mock expo-haptics
 jest.mock('expo-haptics', () => ({
   impactAsync: jest.fn(() => Promise.resolve()),
@@ -158,6 +177,6 @@ describe('PreviewScreen (Màn Xem trước)', () => {
       fireEvent.press(saveBtn);
     });
 
-    expect(getByText(/Tính năng Lưu sẽ có ở Task 08/i)).toBeTruthy();
+    expect(getByText(/Đã lưu vào album/i)).toBeTruthy();
   });
 });
