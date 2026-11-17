@@ -1,6 +1,6 @@
 # Tiến độ — 03-wallpaper-canvas
 
-Trạng thái: 🔄
+Trạng thái: ✅
 
 | Bước | Nội dung | Trạng thái | Ngày | Commit |
 |---|---|---|---|---|
