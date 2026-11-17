@@ -1,6 +1,6 @@
 # Tiến độ — 11-import-history
 
-Trạng thái: 🔄
+Trạng thái: ✅
 
 | Bước | Nội dung | Trạng thái | Ngày | Commit |
 |---|---|---|---|---|
