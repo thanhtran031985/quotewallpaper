@@ -3,7 +3,7 @@
 ## 1. Logic
 | Mã TC | Nội dung kiểm thử | Kết quả mong đợi | Trạng thái |
 |---|---|---|---|
-| **TC-LOG-01** | Tìm không dấu | Ra kết quả có dấu | ⬜ |
+| **TC-LOG-01** | Tìm không dấu | Ra kết quả có dấu | ✅ |
 
 ## 2. Giao diện (Sáng / Tối)
 | Mã TC | Nội dung kiểm thử | Kết quả mong đợi | Trạng thái |

@@ -9,7 +9,7 @@ Bảng tổng các task, chia theo giai đoạn GĐ0–GĐ3 (docs/PRD.md mục G
 | 02 | [02-random-engine](02-random-engine/task.md) — Engine chọn ngẫu nhiên: noRepeat, ghim, chế độ template, yêu thích | ✅ | 01 | feat/02-random-engine |
 | 03 | [03-wallpaper-canvas](03-wallpaper-canvas/task.md) — WallpaperCanvas, layout vùng đồng hồ, fitText, 8 template builtin | ✅ | 01 | feat/03-wallpaper-canvas |
 | 04 | [04-home-preview-ui](04-home-preview-ui/task.md) — Tab Hôm nay và màn Xem trước | ✅ | 02, 03 | feat/04-home-preview-ui |
-| 05 | [05-quotes-ui](05-quotes-ui/task.md) — Tab Danh ngôn: danh sách, tìm kiếm, thêm/sửa, bật/tắt, yêu thích | ⬜ | 01 | feat/05-quotes-ui |
+| 05 | [05-quotes-ui](05-quotes-ui/task.md) — Tab Danh ngôn: danh sách, tìm kiếm, thêm/sửa, bật/tắt, yêu thích | 🔄 | 01 | feat/05-quotes-ui |
 | 06 | [06-images-ui](06-images-ui/task.md) — Tab Ảnh: chọn từ Photos, chép vào app, bật/tắt, điểm lấy nét, xóa | ⬜ | 01 | feat/06-images-ui |
 | 07 | [07-templates-ui](07-templates-ui/task.md) — Tab Mẫu: chế độ Cố định / Ngẫu nhiên, bật/tắt, nhân bản, xóa | ⬜ | 03 | feat/07-templates-ui |
 | 08 | [08-export-settings-mvp](08-export-settings-mvp/task.md) — Lưu vào Ảnh, Cài đặt, Sáng/Tối, hoàn thiện MVP | ⬜ | 04, 05, 06, 07 | feat/08-export-settings-mvp |
