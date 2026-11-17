@@ -17,8 +17,12 @@ export function LockScreenOverlay({
 }: LockScreenOverlayProps) {
   return (
     <View testID={testID} style={styles.overlay} pointerEvents="none">
-      {/* Vùng đồng hồ: Top 8% - 32% */}
-      <View style={styles.clockContainer}>
+      {/* Vùng đồng hồ: Top 8% - 32% (mô phỏng đồng hồ màn hình khóa iOS) */}
+      <View
+        style={styles.clockContainer}
+        accessible={true}
+        accessibilityLabel="Đồng hồ màn hình khóa mô phỏng"
+      >
         <Text style={styles.dateText}>{date}</Text>
         <Text style={styles.timeText}>{time}</Text>
       </View>
