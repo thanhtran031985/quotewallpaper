@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "name": "Quote Wallpaper",
+    "slug": "quotewallpaper",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "quotewallpaper",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.thanhtran.quotewallpaper",
+      "infoPlist": {
+        "NSPhotoLibraryUsageDescription": "Quote Wallpaper cần truy cập Thư viện ảnh để bạn chọn ảnh làm hình nền và lưu hình nền đã tạo.",
+        "NSPhotoLibraryAddUsageDescription": "Quote Wallpaper cần quyền lưu hình nền vào Thư viện ảnh của bạn."
+      }
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/splash-icon.png",
+          "resizeMode": "contain",
+          "backgroundColor": "#ffffff"
+        }
+      ]
+    ]
+  }
+}
