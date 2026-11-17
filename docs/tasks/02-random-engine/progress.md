@@ -1,10 +1,10 @@
 # Tiến độ — 02-random-engine
 
-Trạng thái: ⬜
+Trạng thái: 🔄
 
 | Bước | Nội dung | Trạng thái | Ngày | Commit |
 |---|---|---|---|---|
-| 1 | pickSelection | ⬜ | | |
+| 1 | pickSelection | ✅ | 2026-11-17 | feat(02): step 1 — pickSelection and combinations count |
 | 2 | Tích hợp store + history | ⬜ | | |
 | 3 | Shuffle khi mở | ⬜ | | |
 
