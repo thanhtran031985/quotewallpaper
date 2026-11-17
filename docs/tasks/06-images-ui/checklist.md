@@ -3,7 +3,7 @@
 ## 1. Logic
 | Mã TC | Nội dung kiểm thử | Kết quả mong đợi | Trạng thái |
 |---|---|---|---|
-| **TC-LOG-01** | Xóa ảnh user | File trong documentDirectory bị xóa | ⬜ |
+| **TC-LOG-01** | Xóa ảnh user | File trong documentDirectory bị xóa | ✅ |
 | **TC-LOG-02** | Ảnh mất file | Không được chọn khi random | ⬜ |
 
 ## 3. Trên iPhone (người dùng thử trong Expo Go)

@@ -14,6 +14,7 @@ import { validateQuoteInput, isQuoteDuplicate } from '../domain/validate';
 import { LIBRARY_STORE_VERSION, migrateLibraryState } from './migrations';
 import { useSettingsStore } from './useSettingsStore';
 import { pickSelection } from '../engine/randomPick';
+import { deleteImageFile } from '../services/imageLibrary';
 
 function generateId(prefix: string): string {
   return `${prefix}_${Date.now()}_${Math.random().toString(36).substring(2, 8)}`;
@@ -224,6 +225,9 @@ export const useLibraryStore = create<LibraryStore>()(
         if (current?.imageId === id && pinned.image) {
           newPinned.image = false;
         }
+
+        // Xóa file ảnh trong thư mục app (TC-LOG-01)
+        deleteImageFile(target.uri).catch(() => {});
 
         set({
           images: images.filter((img) => img.id !== id),
