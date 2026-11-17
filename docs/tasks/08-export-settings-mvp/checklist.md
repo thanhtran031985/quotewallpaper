@@ -3,7 +3,7 @@
 ## 1. Logic
 | Mã TC | Nội dung kiểm thử | Kết quả mong đợi | Trạng thái |
 |---|---|---|---|
-| **TC-LOG-01** | Kích thước xuất | Bằng kích thước pixel màn hình | ⬜ |
+| **TC-LOG-01** | Kích thước xuất | Bằng kích thước pixel màn hình | ✅ |
 
 ## 2. Giao diện (Sáng / Tối)
 | Mã TC | Nội dung kiểm thử | Kết quả mong đợi | Trạng thái |
