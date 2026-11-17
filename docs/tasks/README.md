@@ -7,7 +7,7 @@ Bảng tổng các task, chia theo giai đoạn GĐ0–GĐ3 (docs/PRD.md mục G
 | 00 | [00-repo-setup](00-repo-setup/task.md) — Khung dự án Expo + TypeScript, lint, test, tasks-dashboard | ✅ | — | feat/00-repo-setup |
 | 01 | [01-domain-store-seed](01-domain-store-seed/task.md) — Kiểu dữ liệu, store persist, dữ liệu mặc định, theme tokens | ✅ | 00 | feat/01-domain-store-seed |
 | 02 | [02-random-engine](02-random-engine/task.md) — Engine chọn ngẫu nhiên: noRepeat, ghim, chế độ template, yêu thích | ✅ | 01 | feat/02-random-engine |
-| 03 | [03-wallpaper-canvas](03-wallpaper-canvas/task.md) — WallpaperCanvas, layout vùng đồng hồ, fitText, 8 template builtin | ⬜ | 01 | feat/03-wallpaper-canvas |
+| 03 | [03-wallpaper-canvas](03-wallpaper-canvas/task.md) — WallpaperCanvas, layout vùng đồng hồ, fitText, 8 template builtin | ✅ | 01 | feat/03-wallpaper-canvas |
 | 04 | [04-home-preview-ui](04-home-preview-ui/task.md) — Tab Hôm nay và màn Xem trước | ⬜ | 02, 03 | feat/04-home-preview-ui |
 | 05 | [05-quotes-ui](05-quotes-ui/task.md) — Tab Danh ngôn: danh sách, tìm kiếm, thêm/sửa, bật/tắt, yêu thích | ⬜ | 01 | feat/05-quotes-ui |
 | 06 | [06-images-ui](06-images-ui/task.md) — Tab Ảnh: chọn từ Photos, chép vào app, bật/tắt, điểm lấy nét, xóa | ⬜ | 01 | feat/06-images-ui |
