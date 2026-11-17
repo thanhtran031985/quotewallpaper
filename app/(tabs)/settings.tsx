@@ -10,12 +10,15 @@ import {
   Alert,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useRouter } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '@/theme/useTheme';
 import { useSettingsStore } from '@/store/useSettingsStore';
 import { useLibraryStore } from '@/store/useLibraryStore';
 import { haptics } from '@/services/haptics';
 
 export default function SettingsScreen() {
+  const router = useRouter();
   const insets = useSafeAreaInsets();
   const { theme, isDark } = useTheme();
 
@@ -289,21 +292,41 @@ export default function SettingsScreen() {
           <View style={[styles.separator, { backgroundColor: theme.colors.border.separator }]} />
 
           {/* Xuất hàng loạt */}
-          <View style={[styles.row, { opacity: 0.5 }]}>
+          <TouchableOpacity
+            testID="btn-settings-batch-export"
+            style={styles.row}
+            onPress={() => {
+              haptics.impact('light');
+              router.push('/batch-export');
+            }}
+            activeOpacity={0.7}
+            accessibilityRole="button"
+            accessibilityLabel="Xuất hàng loạt vào album"
+          >
             <Text style={[styles.rowLabel, { color: theme.colors.text.primary }]}>
               Xuất hàng loạt vào album
             </Text>
-            <Text style={[styles.rowValue, { color: theme.colors.text.tertiary }]}>Task 10</Text>
-          </View>
+            <Ionicons name="chevron-forward" size={18} color={theme.colors.text.tertiary} />
+          </TouchableOpacity>
           <View style={[styles.separator, { backgroundColor: theme.colors.border.separator }]} />
 
           {/* Hướng dẫn phím tắt */}
-          <View style={[styles.row, { opacity: 0.5 }]}>
+          <TouchableOpacity
+            testID="btn-settings-shortcuts-guide"
+            style={styles.row}
+            onPress={() => {
+              haptics.impact('light');
+              router.push('/shortcuts-guide');
+            }}
+            activeOpacity={0.7}
+            accessibilityRole="button"
+            accessibilityLabel="Hướng dẫn Phím tắt"
+          >
             <Text style={[styles.rowLabel, { color: theme.colors.text.primary }]}>
               Hướng dẫn Phím tắt (Shortcuts)
             </Text>
-            <Text style={[styles.rowValue, { color: theme.colors.text.tertiary }]}>Task 10</Text>
-          </View>
+            <Ionicons name="chevron-forward" size={18} color={theme.colors.text.tertiary} />
+          </TouchableOpacity>
         </View>
 
         {/* Section 4: DỮ LIỆU */}
