@@ -20,6 +20,22 @@ export function triggerImpact(
 }
 
 /**
+ * Rung nhẹ khi di chuyển chọn mục hoặc thay đổi segmented control.
+ */
+export function triggerSelection() {
+  if (Platform.OS === 'ios' || Platform.OS === 'android') {
+    try {
+      const res = Haptics.selectionAsync();
+      if (res && typeof res.catch === 'function') {
+        res.catch(() => {});
+      }
+    } catch {
+      // Bỏ qua lỗi haptics trên môi trường không hỗ trợ
+    }
+  }
+}
+
+/**
  * Rung phản hồi khi hoàn thành tác vụ (lưu thành công, v.v.).
  */
 export function triggerNotification(
@@ -38,6 +54,7 @@ export function triggerNotification(
 }
 
 export const haptics = {
+  selection: triggerSelection,
   impact: (style: 'light' | 'medium' | 'heavy' = 'light') => {
     const map = {
       light: Haptics.ImpactFeedbackStyle.Light,
