@@ -250,6 +250,19 @@ export default function TemplatesScreen() {
       <View style={[styles.header, { paddingTop: insets.top + 8 }]}>
         <View style={styles.navRow}>
           <TouchableOpacity
+            style={[styles.navBtn, { backgroundColor: theme.colors.bg.secondary, marginRight: 8 }]}
+            onPress={() => {
+              haptics.impact('light');
+              router.push('/template-edit/new');
+            }}
+            accessibilityRole="button"
+            accessibilityLabel="Tạo mẫu mới"
+            testID="btn-add-template"
+          >
+            <Ionicons name="add" size={24} color={theme.colors.tint.primary} />
+          </TouchableOpacity>
+
+          <TouchableOpacity
             style={[styles.navBtn, { backgroundColor: theme.colors.bg.secondary }]}
             onPress={() => setShowMenuModal(true)}
             accessibilityRole="button"

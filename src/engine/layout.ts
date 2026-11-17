@@ -63,3 +63,28 @@ export function resolveBoxLayout(
     pushedOutOfClockZone,
   };
 }
+
+/**
+ * Giới hạn vị trí khối chữ khi kéo thả trong trình tạo template (TC-LOG-01 / R13).
+ * Không cho khối chữ xâm phạm vùng đồng hồ (8% - 32% chiều cao màn hình).
+ */
+export function clampBoxPosition(
+  yPct: number,
+  anchor: BoxAnchor = 'top',
+): { yPct: number; isClamped: boolean } {
+  let minPct = CLOCK_ZONE.bottomPct;
+  if (anchor === 'center') {
+    minPct = CLOCK_ZONE.bottomPct + 4;
+  } else if (anchor === 'bottom') {
+    minPct = CLOCK_ZONE.bottomPct + 10;
+  }
+
+  const maxPct = 90;
+  if (yPct < minPct) {
+    return { yPct: minPct, isClamped: true };
+  }
+  if (yPct > maxPct) {
+    return { yPct: maxPct, isClamped: true };
+  }
+  return { yPct, isClamped: false };
+}
