@@ -6,7 +6,7 @@ Trạng thái: 🔄
 |---|---|---|---|---|
 | 1 | Kiểu dữ liệu và validate | ✅ | 2026-11-17 | 0b16733 |
 | 2 | Store và action | ✅ | 2026-11-17 | 5ece0c5 |
-| 3 | Seed và template builtin | ✅ | 2026-11-17 | Pending |
+| 3 | Seed và template builtin | ✅ | 2026-11-17 | 6070dfd |
 | 4 | Theme tokens và dữ liệu hỏng | ⬜ | | |
 
 ## Nhật ký
