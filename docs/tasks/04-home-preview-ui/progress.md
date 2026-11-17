@@ -1,6 +1,6 @@
 # Tiến độ — 04-home-preview-ui
 
-Trạng thái: 🔄
+Trạng thái: ✅
 
 | Bước | Nội dung | Trạng thái | Ngày | Commit |
 |---|---|---|---|---|
