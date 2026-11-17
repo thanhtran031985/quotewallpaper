@@ -16,7 +16,7 @@ export interface PinnedState {
  * Tính số tổ hợp hình nền có thể tạo từ các kho đang bật.
  */
 export function calculateCombinationsCount(lib: LibraryItems, settings: Settings): number {
-  const enabledImages = lib.images.filter((img) => img.enabled).length;
+  const enabledImages = lib.images.filter((img) => img.enabled && !img.fileMissing).length;
   const enabledQuotes = lib.quotes.filter((q) => q.enabled).length;
   if (enabledImages === 0 || enabledQuotes === 0) return 0;
 
@@ -66,7 +66,7 @@ export function pickSelection(
   pinned?: PinnedState,
   rng: () => number = Math.random
 ): Result<Selection> {
-  const enabledImages = lib.images.filter((img) => img.enabled);
+  const enabledImages = lib.images.filter((img) => img.enabled && !img.fileMissing);
   const enabledQuotes = lib.quotes.filter((q) => q.enabled);
   const enabledTemplates = lib.templates.filter((t) => t.enabled);
 

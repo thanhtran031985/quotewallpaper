@@ -179,6 +179,7 @@ export function validateImage(data: unknown): Result<WallpaperImage> {
       height: img.height,
       focalPoint: { x: Math.max(0, Math.min(1, fx)), y: Math.max(0, Math.min(1, fy)) },
       enabled: img.enabled,
+      fileMissing: Boolean(img.fileMissing),
       createdAt: typeof img.createdAt === 'string' ? img.createdAt : new Date().toISOString(),
     },
   };

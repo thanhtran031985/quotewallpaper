@@ -158,6 +158,18 @@ export default function ImagesScreen() {
       >
         <Image source={imageSource} style={styles.imageThumbnail} contentFit="cover" />
 
+        {/* Missing File Warning Badge */}
+        {item.fileMissing && (
+          <View
+            style={[
+              styles.badge,
+              { left: 6, right: undefined, backgroundColor: '#FF9500' },
+            ]}
+          >
+            <Ionicons name="warning" size={12} color="#FFFFFF" />
+          </View>
+        )}
+
         {/* Checkmark Badge */}
         <View
           style={[

@@ -20,6 +20,7 @@ export interface WallpaperImage {
   height: number;
   focalPoint: { x: number; y: number }; // 0–1, vùng ưu tiên khi cắt ảnh theo tỉ lệ màn hình
   enabled: boolean;
+  fileMissing?: boolean; // đánh dấu khi file ảnh không còn tồn tại trên đĩa
   createdAt: string;
 }
 
